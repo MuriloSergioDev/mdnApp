@@ -1,0 +1,12 @@
+{
+  "name": "mdnApp",
+  "displayName": "mdnApp",
+  "expo": {
+    "name": "mdnApp",
+    "slug": "mdnApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
