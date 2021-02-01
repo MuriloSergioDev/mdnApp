@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         padding: 20,
+        paddingTop: 10,
         width: Dimensions.get('window').width * 0.9,
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -18,25 +19,26 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
+        marginTop: 'auto',
+        marginBottom: 'auto'
     },
 
     viewBox: {
-        width: Dimensions.get('window').width * 0.9,
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: Dimensions.get('window').width * 0.8,
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     icon: {
-        marginLeft: 'auto',
-        position: 'absolute',
-        left: 320,
-        top: 0
+        
+        
     },
     textTitle: {
         fontSize: 18,
         color: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto'
 
     },
     textPeriod: {

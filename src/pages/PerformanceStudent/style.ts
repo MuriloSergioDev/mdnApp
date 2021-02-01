@@ -26,11 +26,13 @@ export default StyleSheet.create({
         alignItems:'center'
     },
     navDown: {
-        width: Dimensions.get('window').width,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems:'center',
-        paddingHorizontal: 20        
+        width: Dimensions.get('window').width*0.9,
+        flexDirection: 'column',
+        padding:20,
+        marginVertical: 10,
+        backgroundColor: '#6556A0',
+        borderRadius:20,
+        
     },
     logo: {
         height: Dimensions.get('window').height * 0.1,
@@ -38,9 +40,6 @@ export default StyleSheet.create({
         resizeMode: "contain",
     },
     input: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#6556A0',
-        borderStyle: 'solid',
         padding: 5,
         fontSize: 20,
         width: Dimensions.get('window').width * 0.7,
@@ -51,7 +50,7 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.7,
         fontSize: 20,
         textAlign: 'center',
-        marginBottom: 20
+        marginVertical: 40
     },
     inputBox: {
         marginBottom: 20
@@ -71,5 +70,18 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap'
+    },
+    searchBox: {
+        borderColor: '#6556A0',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        flexDirection: 'row', 
+        alignItems: 'center',
+        padding: 5,
+        borderRadius: 20,
+        width: Dimensions.get('window').width * 0.9
+    },
+    scroll: {
+        width: Dimensions.get('window').width* 0.9
     }
 });

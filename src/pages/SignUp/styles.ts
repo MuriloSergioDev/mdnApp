@@ -6,7 +6,8 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(229, 229, 229, 0.55)',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: Constants.statusBarHeight
     },
     logo: {
         height: Dimensions.get('window').height* 0.3,

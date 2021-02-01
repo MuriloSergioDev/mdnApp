@@ -51,14 +51,14 @@ const Login = ({ }: Props) => {
 
                         <Button
                             color='#F0D65D'
-                            underlayColor='transparent'
+                            underlayColor='#d4bc50'
                             textColor='white'
                             borderColor='#F0D65D'
                             label="LOGIN"
                             onPress={() => { navigateToMenu() }}></Button>
                         <Button
                             color='#6556A0'
-                            underlayColor='transparent'
+                            underlayColor='#514580'
                             textColor='white'
                             borderColor='#6556A0'
                             label="NÃO POSSUO CONTA"

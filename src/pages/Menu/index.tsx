@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { ImageBackground, Text, Image } from 'react-native';
+import { ImageBackground, Text, Image, SafeAreaView } from 'react-native';
 import { View } from 'react-native';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styles';
@@ -41,13 +40,14 @@ const Menu = ({ }: Props) => {
 
                 <Feather name="menu" size={30} color="white" onPress={() => { navigateToTurmas() }} />
 
-                <Image
-                    style={styles.logo}
-                    source={require("../../public/logoalt.png")}></Image>
                 <Text style={styles.textNav}>{turma}</Text>
             </View>
             {!isModalShow ?
                 <View style={styles.contentBox}>
+
+                    <Image
+                    style={styles.logo}
+                    source={require("../../public/logo.png")}></Image>
                     <Text style={styles.text}>Bem vindo {user}</Text>
                     <View style={styles.menuBox}>
                         <Feather name="arrow-left" size={20} color="#6556A0" />
@@ -55,7 +55,7 @@ const Menu = ({ }: Props) => {
                         <View style={styles.buttonMenuBox}>
                             <ButtonMenu
                                 color='#A05656'
-                                underlayColor='transparent'
+                                underlayColor='#854848'
                                 textColor='white'
                                 borderColor='#A05656'
                                 label="Desempenho"
@@ -105,7 +105,7 @@ const Menu = ({ }: Props) => {
 
                         <Button
                             color='#6556A0'
-                            underlayColor='transparent'
+                            underlayColor='#514580'
                             textColor='white'
                             borderColor='#6556A0'
                             label="SAIR"

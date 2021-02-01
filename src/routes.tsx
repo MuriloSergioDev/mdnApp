@@ -13,6 +13,7 @@ import Menu from './pages/Menu';
 import Turmas from './pages/Turmas';
 import CreateTurma from './pages/CreateTurma';
 import ListStudents from './pages/ListStudents';
+import PerformanceStudent from './pages/PerformanceStudent';
 
 const Routes = () => {
 
@@ -27,6 +28,7 @@ const Routes = () => {
                 <AppStack.Screen name="Turmas" component={Turmas} />
                 <AppStack.Screen name="CreateTurma" component={CreateTurma} />
                 <AppStack.Screen name="ListStudents" component={ListStudents} />
+                <AppStack.Screen name="PerformanceStudent" component={PerformanceStudent} />
             </AppStack.Navigator>
 
         </NavigationContainer>

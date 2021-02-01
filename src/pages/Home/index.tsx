@@ -41,7 +41,7 @@ const Home = ({ }: Props) => {
 
                         <Button
                             color='transparent'
-                            underlayColor='#F0D65D'
+                            underlayColor='#f0efeb'
                             textColor='white'
                             borderColor='white'
                             label="CADASTRAR"

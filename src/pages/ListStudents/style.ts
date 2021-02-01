@@ -7,6 +7,7 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(229, 229, 229, 0.55)',
         alignItems: 'center',
+        paddingTop: Constants.statusBarHeight
     },
     nav: {
         backgroundColor: '#6556A0',
@@ -39,9 +40,6 @@ export default StyleSheet.create({
         resizeMode: "contain",
     },
     input: {
-        borderBottomWidth: 2,
-        borderBottomColor: 'white',
-        borderStyle: 'solid',
         padding: 5,
         fontSize: 20,
         width: Dimensions.get('window').width * 0.7,
@@ -73,4 +71,14 @@ export default StyleSheet.create({
         alignItems: 'center',
         flexWrap: 'wrap'
     },
+    searchBox: {
+        borderColor: '#6556A0',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        flexDirection: 'row', 
+        alignItems: 'center',
+        padding: 5,
+        borderRadius: 20,
+        width: Dimensions.get('window').width * 0.9
+    }
 });

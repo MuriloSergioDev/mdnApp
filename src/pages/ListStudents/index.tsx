@@ -4,13 +4,13 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ImageBackground, Text, Image } from 'react-native';
 import { View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import styles from './style'
 import Button from '../../components/Button'
-import TurmaModal from '../../components/TurmaModal'
+import StudentModal from '../../components/StudentModal'
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
+import { Entypo } from '@expo/vector-icons';
 
 // import { Container } from './styles';
 
@@ -28,23 +28,68 @@ const CreateTurma = ({ }: Props) => {
         navigation.goBack();
     }
 
-    function navigateToLogin() {
-        navigation.navigate('Login');
+    function navigateToCharts() {
+        navigation.navigate('PerformanceStudent');
     }
 
 
     return (
         <View style={styles.container}>
-            
-            <Button
-                color='#6556A0'
-                underlayColor='transparent'
-                textColor='white'
-                borderColor='#6556A0'
-                label="VOLTAR"
-                onPress={() => { navigateBack() }}>
-                
-            </Button>
+            <Image
+                style={styles.logo}
+                source={require("../../public/logo.png")}></Image>
+            <View>
+                <View style={styles.searchBox}>
+                    <Feather name="search" size={20} color="#6556A0" />
+                    <TextInput style={styles.input}></TextInput>
+                </View>
+            </View>
+            <ScrollView>
+                <StudentModal
+                    name='Joao da Silva'
+                    colorStatus="green"
+                    onPress={() => { navigateToCharts() }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                <StudentModal
+                    name='Romulo Martinez'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                <StudentModal
+                    name='Juba'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                <StudentModal
+                    name='Aleixo'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                <StudentModal
+                    name='Camundongo'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-neutral" size={24} color="gold" /></StudentModal>
+                <StudentModal
+                    name='Kenny'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                <StudentModal
+                    name='Dom'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                <StudentModal
+                    name='Lupeu'
+                    colorStatus="green"
+                    onPress={() => { }}><Entypo name="emoji-sad" size={24} color="red" /></StudentModal>
+            </ScrollView>
+
+            <View style={styles.buttonBox}>
+                <Button
+                    color='#6556A0'
+                    underlayColor='#514580'
+                    textColor='white'
+                    borderColor='#6556A0'
+                    label="VOLTAR"
+                    onPress={() => { navigateBack() }}>
+
+                </Button>
+            </View>
 
         </View>
     )

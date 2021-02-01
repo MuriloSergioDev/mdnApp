@@ -7,6 +7,7 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(229, 229, 229, 0.55)',
         alignItems: 'center',
+        paddingTop: Constants.statusBarHeight
     },
     nav: {
         backgroundColor: '#6556A0',

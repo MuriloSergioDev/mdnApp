@@ -30,35 +30,35 @@ const BimestreModal = ({ onPress }: Props) => {
                 color="white"
                 textColor="#6556A0"
                 borderColor="white"
-                underlayColor="lightgray"
+                underlayColor="#f0efeb"
                 onPress={() => { navigateToListStudents() }}></Button>
             <Button
                 label="2º Bimestre"
                 color="white"
                 textColor="#6556A0"
                 borderColor="white"
-                underlayColor="lightgray"
+                underlayColor="#f0efeb"
                 onPress={() => { navigateToListStudents() }}></Button>
             <Button
                 label="3º Bimestre"
                 color="white"
                 textColor="#6556A0"
                 borderColor="white"
-                underlayColor="lightgray"
+                underlayColor="#f0efeb"
                 onPress={() => { navigateToListStudents() }}></Button>
             <Button
                 label="4º Bimestre"
                 color="white"
                 textColor="#6556A0"
                 borderColor="white"
-                underlayColor="lightgray"
+                underlayColor="#f0efeb"
                 onPress={() => { navigateToListStudents() }}></Button>
             <Button
                 label="5º Bimestre"
                 color="white"
                 textColor="#6556A0"
                 borderColor="white"
-                underlayColor="lightgray"
+                underlayColor="#f0efeb"
                 onPress={() => { navigateToListStudents() }}></Button>
         </View>
     );
