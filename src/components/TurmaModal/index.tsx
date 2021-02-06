@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacityBase } from 'react-
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './style'
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
     title?: string
@@ -13,6 +14,12 @@ type Props = {
 }
 
 const TurmaModal = ({ title, start, end, colorStatus = "black", onPress }: Props) => {
+
+    const navigation = useNavigation();
+    
+    function navigateBack() {
+        navigation.goBack();
+    }
 
     function handleTurmaDelete(){
         console.log('deletar turma')

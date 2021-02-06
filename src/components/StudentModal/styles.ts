@@ -6,7 +6,7 @@ export default StyleSheet.create({
     container: {
         padding: 5,
         height: Dimensions.get('window').width / 5,
-        width: Dimensions.get('window').width ,
+        
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomColor: '#C4C4C4',
@@ -31,5 +31,15 @@ export default StyleSheet.create({
     },
     textPeriod: {
 
+    },
+    rightAction: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'red',
+        padding : 20,
+    },
+    textAction: {
+        color: 'white'
     }
 });

@@ -7,6 +7,8 @@ import { View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
 import Button from '../../components/Button'
+import { useState } from 'react';
+import { Modal } from 'react-native';
 
 // import { Container } from './styles';
 
@@ -16,8 +18,11 @@ type Props = {
 
 const Login = ({ }: Props) => {
 
-    const navigation = useNavigation();
+    
+    const [modalVisible, setModalVisible] = useState(false);
 
+    const navigation = useNavigation();
+    
     function navigateBack() {
         navigation.goBack();
     }
@@ -31,22 +36,23 @@ const Login = ({ }: Props) => {
             <Image
                 style={styles.logo}
                 source={require("../../public/logo.png")}></Image>
+            {!modalVisible ?
+                <View>
+                    <View style={styles.inputBox}>
+                        <Text style={styles.text}>Usuario</Text>
+                        <TextInput style={styles.input}></TextInput>
+                    </View>
 
-            <View style={styles.inputBox}>
-                <Text style={styles.text}>Usuario</Text>
-                <TextInput style={styles.input}></TextInput>
-            </View>
-
-            <View style={styles.inputBox}>
-                <Text style={styles.text}>Senha</Text>
-                <TextInput style={styles.input}></TextInput>
-            </View>
-            <Text style={styles.textForget}>Esqueci minha senha</Text>
-            {/* <View style={styles.inputBox}>
+                    <View style={styles.inputBox}>
+                        <Text style={styles.text}>Senha</Text>
+                        <TextInput style={styles.input}></TextInput>
+                    </View>
+                    <Text style={styles.textForget} onPress={() => { setModalVisible(true) }}>Esqueci minha senha</Text>
+                    {/* <View style={styles.inputBox}>
                 <Text style={styles.text}>Turma</Text>
             </View> */}
 
-            <View style={styles.buttonBox}>
+                    <View style={styles.buttonBox}>
 
 
                         <Button
@@ -64,6 +70,20 @@ const Login = ({ }: Props) => {
                             label="NÃO POSSUO CONTA"
                             onPress={() => { navigateBack() }}></Button>
                     </View>
+                </View>
+                :
+                <View>
+                    <Text style={styles.text}>Digite seu email</Text>
+                    <TextInput style={styles.input}> </TextInput>
+                    <Button
+                        color='#F0D65D'
+                        underlayColor='#d4bc50'
+                        textColor='white'
+                        borderColor='#F0D65D'
+                        label="Solicitar senha"
+                        onPress={() => { setModalVisible(false) }}></Button>
+                </View>
+            }
         </View>
     )
 }

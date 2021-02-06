@@ -21,7 +21,7 @@ const Turmas = ({ }: Props) => {
 
     const navigation = useNavigation();
     const user = 'Gustavo Miranda'
-    const turma = '2020-1'
+    const turma = 'Segunda 2020-1'
 
     function navigateBack() {
         navigation.goBack();
@@ -49,21 +49,33 @@ const Turmas = ({ }: Props) => {
             </View>
 
             <View>
-                <TurmaModal
-                    title='Terça'
+            <TurmaModal
+                    title='Segunda 2020-1'
                     start="02/02/2021"
                     end="02/12/2021"
                     colorStatus="green"
                     onPress={() => { }}></TurmaModal>
                 <TurmaModal
-                    title='Quarta'
+                    title='Terça 2020-1'
+                    start="02/02/2021"
+                    end="02/12/2021"
+                    colorStatus="green"
+                    onPress={() => { }}></TurmaModal>
+                <TurmaModal
+                    title='Quarta 2020-1'
                     start="02/02/2021"
                     end="02/12/2021"
                     onPress={() => { }}></TurmaModal>
                 <TurmaModal
-                    title='Quinta'
+                    title='Quinta 2020-1'
                     start="02/02/2021"
                     end="02/12/2021"
+                    onPress={() => { }}></TurmaModal>
+                    <TurmaModal
+                    title='Sexta 2020-1'
+                    start="02/02/2021"
+                    end="02/12/2021"
+                    colorStatus="green"
                     onPress={() => { }}></TurmaModal>
             </View>
 

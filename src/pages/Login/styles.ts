@@ -33,7 +33,7 @@ export default StyleSheet.create({
         marginBottom: 20
     },
     buttonBox: {
-        marginTop: 'auto',
+        marginTop: 50,
         marginBottom: 20
     },
     textForget: {
@@ -41,5 +41,26 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.7,
         color: '#6556A0',
         fontWeight: 'bold'
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 15,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+      },
 });

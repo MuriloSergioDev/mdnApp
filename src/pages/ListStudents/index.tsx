@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ImageBackground, Text, Image } from 'react-native';
+import { ImageBackground, Text, Image, FlatList } from 'react-native';
 import { View } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import styles from './style'
@@ -24,6 +24,13 @@ const CreateTurma = ({ }: Props) => {
     const user = 'Gustavo Miranda'
     const turma = '2020-1'
 
+    const data = [
+        { name: 'Joao da Silva', id: 'a' },
+        { name: 'Joao da Silva', id: 'b' },
+        { name: 'Joao da Silva', id: 'c' },
+        { name: 'Joao da Silva', id: 'd' }
+    ]
+
     function navigateBack() {
         navigation.goBack();
     }
@@ -44,7 +51,19 @@ const CreateTurma = ({ }: Props) => {
                     <TextInput style={styles.input}></TextInput>
                 </View>
             </View>
+
+            <FlatList
+                    data={data}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <StudentModal
+                            name={item.name}
+                            onPress={() => { navigateToCharts() }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                    )}
+                />
             <ScrollView>
+                
+
                 <StudentModal
                     name='Joao da Silva'
                     colorStatus="green"

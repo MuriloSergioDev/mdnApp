@@ -18,6 +18,7 @@ export default StyleSheet.create({
     textNav: {
         fontSize: 20,
         color: 'white',
+        marginTop: 20
     },
     navUp: {
         width: Dimensions.get('window').width*0.9,
@@ -45,7 +46,7 @@ export default StyleSheet.create({
         borderStyle: 'solid',
         padding: 5,
         fontSize: 20,
-        width: Dimensions.get('window').width * 0.7,
+        width: Dimensions.get('window').width * 0.8,
 
     },
     text: {
@@ -73,5 +74,8 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap'
+    },
+    datePicker: {
+        width: Dimensions.get('window').width* 0.8 
     }
 });

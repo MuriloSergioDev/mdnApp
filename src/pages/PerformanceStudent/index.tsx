@@ -12,14 +12,20 @@ import BarChartExample from '../../components/BarChartExample'
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { BarChart, Grid, XAxis, YAxis } from 'react-native-svg-charts'
+//import { BarChart, Grid, XAxis, YAxis } from 'react-native-svg-charts'
 import * as scale from 'd3-scale'
+import { render } from 'react-dom';
+import { BarChart } from "react-native-chart-kit"
+import { Dimensions } from "react-native";
+import { TouchableHighlight } from 'react-native';
 
 // import { Container } from './styles';
 
 type Props = {
 
 }
+
+
 
 const PerformanceStudent = ({ }: Props) => {
 
@@ -28,14 +34,28 @@ const PerformanceStudent = ({ }: Props) => {
     const aluno = 'Romulo Martinez'
     const turma = '2020-1'
     const fill = 'rgb(134, 65, 244)'
-    const data = [{ value: 50, label: 'facil', svg: { fill: "#F0D65D" } }, { value: 100, label: 'medio', svg: { fill: '#5D6CF0' } }, { value: 30, label: 'dificil', svg: { fill: '#A05656' } }]
+    //const data = [{ value: 50, label: 'facil', svg: { fill: "#F0D65D" } }, { value: 100, label: 'medio', svg: { fill: '#5D6CF0' } }, { value: 30, label: 'dificil', svg: { fill: '#A05656' } }]
+    //const data = [ 10, 5, 25, 15, 20 ]
+    const screenWidth = Dimensions.get("window").width;
+    const data = {
+        labels: ["Facil", "Medio", "Dificil"],
+        datasets: [
+            {
+                data: [20, 45, 28,]
+            }
+        ],
+        barColors: ["red", "yellow", "blue"]
+    };
     const data2 = [0, 100]
-
-    const axesSvg = { fontSize: 10, fill: 'grey' };
-    const verticalContentInset = { top: 30, bottom: 10 }
-    const xAxisHeight = 0
-    
-
+    const chartConfig = {
+        backgroundGradientFrom: "rgba(229, 229, 229, 0.55)",
+        backgroundGradientTo: "rgba(229, 229, 229, 0.55)",
+        fillShadowGradientOpacity: 1,
+        color: (opacity = 1) => `#6556A0`,
+        strokeWidth: 3, // optional, default 3
+        barPercentage: 1,
+        useShadowColorFromDataset: false // optional
+    };
 
     function navigateBack() {
         navigation.goBack();
@@ -44,7 +64,9 @@ const PerformanceStudent = ({ }: Props) => {
     function navigateToCharts() {
         navigation.navigate('Login');
     }
-
+    function handleTurmaDelete() {
+        console.log('deletar aluno')
+    }
 
 
     return (
@@ -58,26 +80,30 @@ const PerformanceStudent = ({ }: Props) => {
 
             </View>
             <ScrollView style={styles.scroll}>
-                <Text>% de acertos</Text>
-                <View style={{ height: 300, padding: 0, flexDirection: 'row' }}>
+                <Text style={styles.textScroll}>% de Acertos</Text>
 
-                    <YAxis
-                        data={data2}
-                        style={{ marginBottom: xAxisHeight }}
-                        contentInset={verticalContentInset}
-                        svg={axesSvg}
-                    />
-                    <View style={{ flex: 1, marginLeft: 10 }}>
-                        <BarChart style={{ height: 300 }} data={data} yAccessor={({ item }) => item.value} svg={{ fill }} contentInset={{ top: 30, bottom: 20 }}>
-                            <Grid direction={Grid.Direction.VERTICAL} />
-                            <Grid direction={Grid.Direction.HORIZONTAL} />                     
-                        </BarChart>
-                        
-            
-                        
-                    </View>
-                </View>
+                <BarChart
+                    style={styles.chart}
+                    data={data}
+                    width={screenWidth}
+                    height={320}
+                    yAxisLabel=""
+                    yAxisSuffix="%"
+                    chartConfig={chartConfig}
+                    verticalLabelRotation={30}
+                    fromZero={true}
+                    withInnerLines={true}
+                    showValuesOnTopOfBars={true}
+                    showBarTops={false}
+                />
             </ScrollView>
+
+            <TouchableHighlight onPress={() => { handleTurmaDelete() }} underlayColor="lightgray">
+                    <View style={styles.containerExclusion}>
+                        <Text style={styles.textExclusion}>Excluir Aluno</Text>
+                        <Feather name="trash-2" size={20} color="red" onPress={()=>{handleTurmaDelete()}}/>
+                    </View>
+                </TouchableHighlight>
 
             <View style={styles.buttonBox}>
                 <Button

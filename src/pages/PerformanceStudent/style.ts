@@ -50,7 +50,8 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.7,
         fontSize: 20,
         textAlign: 'center',
-        marginVertical: 40
+        marginTop: 40,
+        marginBottom: 20
     },
     inputBox: {
         marginBottom: 20
@@ -82,6 +83,35 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.9
     },
     scroll: {
-        width: Dimensions.get('window').width* 0.9
+        width: Dimensions.get('window').width,
+        backgroundColor: 'rgb(229, 229, 229)',
+    },
+    textScroll: {
+        fontSize: 16,
+        color: '#6556A0',
+        padding: 5,
+        textAlign: 'center',
+        marginBottom: 20 
+    },
+    chart: {
+        
+    },
+    icon: {
+
+    },
+    containerExclusion:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#6556A0',
+        borderRadius: 10,
+        padding: 5,
+        width: Dimensions.get('window').width * 0.7        
+        
+    },
+    textExclusion: {
+        color: 'red',
+        fontSize: 16,
+        marginRight: 10
     }
 });
