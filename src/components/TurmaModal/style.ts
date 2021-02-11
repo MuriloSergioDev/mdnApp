@@ -4,18 +4,20 @@ import { Dimensions } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        padding: 5,
+        paddingVertical: 20,
+        paddingHorizontal: 40,
         height: Dimensions.get('window').width / 5,
         width: Dimensions.get('window').width ,
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
-        borderBottomColor: '#C4C4C4',
-        borderBottomWidth: 1
+        backgroundColor: 'rgb(229, 229, 229)'
     },
     
     viewBox: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        
     },
     textTitle: {
         fontSize: 18,
@@ -28,5 +30,22 @@ export default StyleSheet.create({
     },
     textPeriod: {
 
+    },
+    deleteAction: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'red',
+        padding : 20,
+        width: 100
+    },
+    editAction: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#F0D65D',
+        padding : 20,
+        width: 100
+    },
+    textAction: {
+        color: 'white'
     }
 });

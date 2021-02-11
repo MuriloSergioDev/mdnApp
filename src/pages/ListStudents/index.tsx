@@ -1,18 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { ImageBackground, Text, Image, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ImageBackground, Text, Image, FlatList, Animated } from 'react-native';
 import { View } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { RectButton, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './style'
 import Button from '../../components/Button'
 import StudentModal from '../../components/StudentModal'
 import { Feather } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-
-// import { Container } from './styles';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import Separator from '../../components/Separator';
+import { StudentInterface } from '../../interface/interface';
+import SearchBox from '../../components/SearchBox';
 
 type Props = {
 
@@ -21,15 +22,26 @@ type Props = {
 const CreateTurma = ({ }: Props) => {
 
     const navigation = useNavigation();
+    const [search, setSearch] = useState<string>('')
+    const [students, setStudents] = useState<StudentInterface[]>()
     const user = 'Gustavo Miranda'
     const turma = '2020-1'
 
     const data = [
         { name: 'Joao da Silva', id: 'a' },
-        { name: 'Joao da Silva', id: 'b' },
-        { name: 'Joao da Silva', id: 'c' },
-        { name: 'Joao da Silva', id: 'd' }
+        { name: 'Romulo Martinez', id: 'b' },
+        { name: 'Juba', id: 'c' },
+        { name: 'Aleixo', id: 'd' },
+        { name: 'Camundongo', id: 'e' },
+        { name: 'Kenny', id: 'f' },
+        { name: 'Dom', id: 'g' },
+        { name: 'Lupeu', id: 'h' }
     ]
+
+    useEffect(() => {
+        setStudents(data)
+    }, [])
+
 
     function navigateBack() {
         navigation.goBack();
@@ -39,6 +51,12 @@ const CreateTurma = ({ }: Props) => {
         navigation.navigate('PerformanceStudent');
     }
 
+    function filterBySearch(Student: StudentInterface) {
+        if (Student.name?.toLocaleLowerCase()?.indexOf(search.toLowerCase()) !== -1)
+            return Student
+    }
+
+    const filtered = students?.filter(filterBySearch)
 
     return (
         <View style={styles.container}>
@@ -46,57 +64,24 @@ const CreateTurma = ({ }: Props) => {
                 style={styles.logo}
                 source={require("../../public/logo.png")}></Image>
             <View>
-                <View style={styles.searchBox}>
-                    <Feather name="search" size={20} color="#6556A0" />
-                    <TextInput style={styles.input}></TextInput>
-                </View>
+                <SearchBox onChangeText={(text)=>setSearch(text)} value={search} />
             </View>
 
-            <FlatList
-                    data={data}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => (
-                        <StudentModal
-                            name={item.name}
-                            onPress={() => { navigateToCharts() }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                    )}
-                />
-            <ScrollView>
-                
-
-                <StudentModal
-                    name='Joao da Silva'
-                    colorStatus="green"
-                    onPress={() => { navigateToCharts() }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                <StudentModal
-                    name='Romulo Martinez'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                <StudentModal
-                    name='Juba'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                <StudentModal
-                    name='Aleixo'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                <StudentModal
-                    name='Camundongo'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-neutral" size={24} color="gold" /></StudentModal>
-                <StudentModal
-                    name='Kenny'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                <StudentModal
-                    name='Dom'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
-                <StudentModal
-                    name='Lupeu'
-                    colorStatus="green"
-                    onPress={() => { }}><Entypo name="emoji-sad" size={24} color="red" /></StudentModal>
-            </ScrollView>
+            {
+                filtered != null ?
+                    <FlatList
+                        data={filtered}
+                        keyExtractor={item => item.id}
+                        ItemSeparatorComponent={() => <Separator />}
+                        renderItem={({ item }) => (
+                            <StudentModal
+                                name={item.name}
+                                colorStatus="green"
+                                onPress={() => { navigateToCharts() }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
+                        )}
+                    />
+                    : <Text>Carregando ...</Text>
+            }
 
             <View style={styles.buttonBox}>
                 <Button

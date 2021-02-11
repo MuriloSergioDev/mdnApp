@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(229, 229, 229, 0.55)',
+        backgroundColor: 'rgb(229, 229, 229)',
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight
     },

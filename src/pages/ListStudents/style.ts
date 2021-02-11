@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(229, 229, 229, 0.55)',
+        backgroundColor: 'rgb(229, 229, 229)',
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight
     },
@@ -79,6 +79,31 @@ export default StyleSheet.create({
         alignItems: 'center',
         padding: 5,
         borderRadius: 20,
-        width: Dimensions.get('window').width * 0.9
+        width: Dimensions.get('window').width * 0.9,
+        
+    },
+    rowFront: {
+        backgroundColor: 'blue',
+        
+        justifyContent: 'center'
+    },
+    rowBack: {
+        backgroundColor: 'red',
+        
+        justifyContent: 'space-between'
+    },
+    rightAction: {
+        backgroundColor: 'red',
+        
+        alignItems: 'flex-end' 
+    },
+    textAction: {
+
+    },
+    swiple: {
+        padding: 20,
+        width: Dimensions.get('window').width ,
+        backgroundColor: 'grey',
+        
     }
 });

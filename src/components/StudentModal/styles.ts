@@ -6,12 +6,11 @@ export default StyleSheet.create({
     container: {
         padding: 5,
         height: Dimensions.get('window').width / 5,
-        
+        width: Dimensions.get('window').width ,
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomColor: '#C4C4C4',
-        borderBottomWidth: 1,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        backgroundColor: 'rgb(229, 229, 229)'
     },
     
     viewBox: {
@@ -32,12 +31,19 @@ export default StyleSheet.create({
     textPeriod: {
 
     },
-    rightAction: {
-        flex: 1,
+    deleteAction: {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'red',
         padding : 20,
+        width: 100
+    },
+    editAction: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#F0D65D',
+        padding : 20,
+        width: 100
     },
     textAction: {
         color: 'white'

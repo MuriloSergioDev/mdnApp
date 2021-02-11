@@ -4,13 +4,17 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ImageBackground, Text, Image } from 'react-native';
 import { View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles'
 import Button from '../../components/Button'
 import TurmaModal from '../../components/TurmaModal'
 import { Feather } from '@expo/vector-icons';
-import DatePicker from 'react-native-datepicker'
+import { FontAwesome } from '@expo/vector-icons';
+import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DatePicker from '@react-native-community/datetimepicker'
 import { useState } from 'react';
+import DatePicker from '../../components/DatePicker';
 
 
 // import { Container } from './styles';
@@ -25,14 +29,28 @@ const CreateTurma = ({ }: Props) => {
     const user = 'Gustavo Miranda'
     const turma = '2020-1'
 
-    const [dateInicio, setDateInicio] = useState('')
-    const [dateFim, setDateFim] = useState('')
+    const [dateInicio, setDateInicio] = useState("")
+    const [dateFim, setDateFim] = useState("")
 
     function navigateBack() {
         navigation.goBack();
     }
 
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+        //console.warn("A date has been picked: ", date);
+        setDateInicio(date.toUTCString())
+        hideDatePicker();
+    };
 
     return (
         <View style={styles.container}>
@@ -52,64 +70,10 @@ const CreateTurma = ({ }: Props) => {
                 <TextInput style={styles.input}></TextInput>
 
                 <Text style={styles.textNav}>Inicio</Text>
-                <DatePicker
-                    style={styles.datePicker}
-                    date={dateInicio}
-                    mode="date"
-                    placeholder="Selecione a data"
-                    format="DD-MM-YYYY"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            marginLeft: 36
-                        },
-                        placeholderText: {
-                            color: 'white'
-                        },
-                        dateText: {
-                            color: 'white'
-                        }
-                        // ... You can check the source to find the other keys.
-                    }}
-                    onDateChange={(date) => { setDateInicio(date) }}
-                />
+                <DatePicker setDateInicio={setDateInicio} value={dateInicio}></DatePicker>
 
                 <Text style={styles.textNav}>Fim</Text>
-                <DatePicker
-                    style={styles.datePicker}
-                    date={dateFim}
-                    mode="date"
-                    placeholder="Selecione a data"
-                    format="DD-MM-YYYY"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            marginLeft: 36
-                        },
-                        placeholderText: {
-                            color: 'white'
-                        },
-                        dateText: {
-                            color: 'white'
-                        }
-                        // ... You can check the source to find the other keys.
-                    }}
-                    onDateChange={(date) => { setDateFim(date) }}
-                />
+                <DatePicker setDateInicio={setDateFim} value={dateFim}></DatePicker>
             </View>
         </View>
     )

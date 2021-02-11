@@ -98,12 +98,13 @@ const PerformanceStudent = ({ }: Props) => {
                 />
             </ScrollView>
 
-            <TouchableHighlight onPress={() => { handleTurmaDelete() }} underlayColor="lightgray">
+            {/* Button delete alternativo */}
+            {/* <TouchableHighlight onPress={() => { handleTurmaDelete() }} underlayColor="lightgray">
                     <View style={styles.containerExclusion}>
                         <Text style={styles.textExclusion}>Excluir Aluno</Text>
                         <Feather name="trash-2" size={20} color="red" onPress={()=>{handleTurmaDelete()}}/>
                     </View>
-                </TouchableHighlight>
+                </TouchableHighlight> */}
 
             <View style={styles.buttonBox}>
                 <Button

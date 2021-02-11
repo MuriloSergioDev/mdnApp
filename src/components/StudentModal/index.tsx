@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { RectButton, TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Animated } from 'react-native';
 
 
 type Props = {
@@ -15,28 +16,37 @@ type Props = {
 
 const StudentModal = ({ name, colorStatus = "black", onPress, children }: Props) => {
 
-    function handleTurmaDelete() {
+    function handleAlunoDelete() {
         console.log('deletar aluno')
     }
 
+    function handleAlunoEdit() {
+        console.log('editar aluno')
+    }
+
     function rightActions(progress, dragX) {
-    //     const trans = dragX.interpolate({
-    //   inputRange: [0, 50, 100, 101],
-    //   outputRange: [-20, 0, 0, 1],
-    // });
         return (
-            <TouchableOpacity>
-                <View style={styles.rightAction}>
-                    <Text style={styles.textAction}>Excluir</Text>
-                    <Feather name="trash-2" size={20} color="white" onPress={() => { handleTurmaDelete() }} />
-                </View>
-            </TouchableOpacity>
+            <>
+                <TouchableOpacity onPress={() => { handleAlunoDelete() }}>
+                    <View style={styles.deleteAction}>
+                        <Text style={styles.textAction}>Excluir</Text>
+                        <Feather name="trash-2" size={20} color="white"/>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => { handleAlunoEdit() }}>
+                    <View style={styles.editAction}>
+                        <Text style={styles.textAction}>Editar</Text>
+                        <Feather name="trash-2" size={20} color="white"/>
+                    </View>
+                </TouchableOpacity>
+            </>
         );
     }
 
     return (
-        <Swipeable friction= {1} renderRightActions={rightActions}>
-            <TouchableHighlight onPress={onPress} underlayColor="lightgray">
+        <Swipeable renderRightActions={rightActions} >
+            <TouchableHighlight onPress={onPress} >
 
                 <View style={styles.container} >
                     {children}
