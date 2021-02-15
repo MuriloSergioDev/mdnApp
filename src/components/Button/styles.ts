@@ -10,7 +10,6 @@ export default StyleSheet.create({
         borderRadius: 20,
         borderStyle: 'solid',
         borderWidth: 1,
-        marginTop: 20,
         justifyContent: 'center'
     },
     text: {

@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(229, 229, 229, 0.55)',
+        backgroundColor: 'rgb(229, 229, 229)',
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight
     },
@@ -13,16 +13,12 @@ export default StyleSheet.create({
         height: Dimensions.get('window').height* 0.3,
         width: Dimensions.get('window').width * 0.5,
         resizeMode: "contain",
-        marginBottom: 50
     },
     input: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#6556A0',
-        borderStyle: 'solid',
         padding: 5,
         fontSize: 20,
         width: Dimensions.get('window').width * 0.7,
-        
+        backgroundColor: 'rgb(229, 229, 229)',
     },
     text: {
         color: '#6556A0',
@@ -36,10 +32,10 @@ export default StyleSheet.create({
         
     },
     inputBox: {
-        marginBottom: 20
+        marginBottom: 10
     },
     buttonBox: {
-        marginBottom: 20
+        marginVertical: 10,
     },
     centeredView: {
         flex: 1,

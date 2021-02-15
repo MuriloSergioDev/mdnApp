@@ -23,7 +23,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     buttonBox: {
-
+        marginVertical: 10,
     },
     logo: {
         height: Dimensions.get('window').height* 0.3,

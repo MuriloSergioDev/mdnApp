@@ -4,11 +4,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ImageBackground, Text, Image, Modal } from 'react-native';
 import { View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-paper';
 import styles from './styles';
 import Button from '../../components/Button'
 import { useState } from 'react';
 import { TouchableHighlight } from 'react-native';
+import { UserInterface } from '../../interface/interface';
+import firebase from "firebase";
+import { db } from '../../config/Firebase';
 
 // import { Container } from './styles';
 
@@ -22,6 +25,39 @@ const SignUp = ({ }: Props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [turmas, setTurmas] = useState(['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado']);
     const [turmaChosen, setTurmaChosen] = useState('');
+    const [user, setUser] = useState<UserInterface>(
+        {
+            name: '',
+            email: '',
+            password: ''
+        }
+    )
+
+    async function handleSignUp() {
+
+        try {
+            const response = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+            if (response.user.uid) {
+                const data = {
+                    uid: response.user.uid,
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    turma: turmaChosen
+                }
+
+                db.collection('users')
+                    .doc(response.user.uid)
+                    .set(data)
+
+            }
+        }
+        catch (error) {
+            alert(error)
+        }
+    }
+
+
 
     function navigateBack() {
         navigation.goBack();
@@ -64,31 +100,70 @@ const SignUp = ({ }: Props) => {
             </Modal>
 
             <View style={styles.inputBox}>
-                <Text style={styles.text}>Usuario</Text>
-                <TextInput style={styles.input}></TextInput>
+                {/* @ts-ignore */}
+                <TextInput
+                    theme={{
+                        colors: {
+                            placeholder: '#6556A0', text: '#6556A0', primary: '#6556A0'
+                        }
+                    }}
+                    style={styles.input}
+                    mode='flat'
+                    label="Usuario"
+                    value={user.name}
+                    onChangeText={(value => setUser(prevState => { return { ...prevState, name: value } }))}
+                />
             </View>
 
             <View style={styles.inputBox}>
-                <Text style={styles.text}>Senha</Text>
-                <TextInput style={styles.input}></TextInput>
+                {/* @ts-ignore */}
+                <TextInput
+                    theme={{
+                        colors: {
+                            placeholder: '#6556A0', text: '#6556A0', primary: '#6556A0'
+                        }
+                    }}
+                    style={styles.input}
+                    mode='flat'
+                    label="Email"
+                    value={user.email}
+                    onChangeText={(value => setUser(prevState => { return { ...prevState, email: value } }))}
+                />
             </View>
 
             <View style={styles.inputBox}>
-                <TouchableHighlight style={styles.turmaHighlightSelect}  onPress={() => { setModalVisible(true) }} underlayColor='#514580'>
+                {/* @ts-ignore */}
+                <TextInput
+                    theme={{
+                        colors: {
+                            placeholder: '#6556A0', text: '#6556A0', primary: '#6556A0'
+                        }
+                    }}
+                    style={styles.input}
+                    secureTextEntry={true}
+                    mode='flat'
+                    label="Senha"
+                    value={user.password}
+                    onChangeText={(value => setUser(prevState => { return { ...prevState, password: value } }))}
+                />
+            </View>
+
+            <View style={styles.inputBox}>
+                <TouchableHighlight style={styles.turmaHighlightSelect} onPress={() => { setModalVisible(true) }} underlayColor='#514580'>
                     <Text style={styles.textTurma}>{turmaChosen ? turmaChosen : 'Selecionar Turma'}</Text>
                 </TouchableHighlight>
             </View>
 
             <View style={styles.buttonBox}>
-
-
                 <Button
                     color='#F0D65D'
                     underlayColor='#d4bc50'
                     textColor='white'
                     borderColor='#F0D65D'
                     label="CRIAR CONTA"
-                    onPress={() => { }}></Button>
+                    onPress={() => { handleSignUp() }}></Button>
+            </View>
+            <View style={styles.buttonBox}>
                 <Button
                     color='#6556A0'
                     underlayColor='#514580'

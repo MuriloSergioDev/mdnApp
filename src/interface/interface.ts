@@ -10,3 +10,9 @@ export interface TurmaInterface {
     end?: string,
     colorStatus: string,
 }
+
+export interface UserInterface {
+    name: string
+    email: string
+    password: string
+}

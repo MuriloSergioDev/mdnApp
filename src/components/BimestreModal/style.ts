@@ -43,5 +43,8 @@ export default StyleSheet.create({
     },
     textPeriod: {
 
-    }
+    },
+    buttonBox: {
+        marginVertical: 10,
+    },
 });

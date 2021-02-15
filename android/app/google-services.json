@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800039642290",
+    "project_id": "mdnappusers-b9ad2",
+    "storage_bucket": "mdnappusers-b9ad2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800039642290:android:57fb02e56fa70ecaab55ab",
+        "android_client_info": {
+          "package_name": "com.mdnapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800039642290-st8q0sq5vrm94soe8ckg29a0u843f517.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehP-UiOpQh5T5MRJpFg-gOYO4I0fdlME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800039642290-st8q0sq5vrm94soe8ckg29a0u843f517.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

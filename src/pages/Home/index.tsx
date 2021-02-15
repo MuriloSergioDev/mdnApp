@@ -33,9 +33,9 @@ const Home = ({ }: Props) => {
                 style={styles.layer}
             >
                 <View style={styles.container}>
-                    <Image 
-                    style={styles.logo}
-                    source={require("../../public/logo.png")}></Image>
+                    <Image
+                        style={styles.logo}
+                        source={require("../../public/logo.png")}></Image>
                     <View style={styles.buttonBox}>
 
 
@@ -46,6 +46,8 @@ const Home = ({ }: Props) => {
                             borderColor='white'
                             label="CADASTRAR"
                             onPress={() => { navigateToSignUp() }}></Button>
+                    </View>
+                    <View style={styles.buttonBox}>
                         <Button
                             color='white'
                             underlayColor='transparent'

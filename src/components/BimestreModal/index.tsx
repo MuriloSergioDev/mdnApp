@@ -25,41 +25,51 @@ const BimestreModal = ({ onPress }: Props) => {
                 <Text style={styles.textTitle}>Escolha o Bimestre</Text>
                 <Ionicons name="close" size={24} color="white" style={styles.icon} onPress={onPress} />
             </View>
-            <Button
-                label="1º Bimestre"
-                color="white"
-                textColor="#6556A0"
-                borderColor="white"
-                underlayColor="#f0efeb"
-                onPress={() => { navigateToListStudents() }}></Button>
-            <Button
-                label="2º Bimestre"
-                color="white"
-                textColor="#6556A0"
-                borderColor="white"
-                underlayColor="#f0efeb"
-                onPress={() => { navigateToListStudents() }}></Button>
-            <Button
-                label="3º Bimestre"
-                color="white"
-                textColor="#6556A0"
-                borderColor="white"
-                underlayColor="#f0efeb"
-                onPress={() => { navigateToListStudents() }}></Button>
-            <Button
-                label="4º Bimestre"
-                color="white"
-                textColor="#6556A0"
-                borderColor="white"
-                underlayColor="#f0efeb"
-                onPress={() => { navigateToListStudents() }}></Button>
-            <Button
-                label="5º Bimestre"
-                color="white"
-                textColor="#6556A0"
-                borderColor="white"
-                underlayColor="#f0efeb"
-                onPress={() => { navigateToListStudents() }}></Button>
+            <View style={styles.buttonBox}>
+                <Button
+                    label="1º Bimestre"
+                    color="white"
+                    textColor="#6556A0"
+                    borderColor="white"
+                    underlayColor="#f0efeb"
+                    onPress={() => { navigateToListStudents() }}></Button>
+            </View>
+            <View style={styles.buttonBox}>
+                <Button
+                    label="2º Bimestre"
+                    color="white"
+                    textColor="#6556A0"
+                    borderColor="white"
+                    underlayColor="#f0efeb"
+                    onPress={() => { navigateToListStudents() }}></Button>
+            </View>
+            <View style={styles.buttonBox}>
+                <Button
+                    label="3º Bimestre"
+                    color="white"
+                    textColor="#6556A0"
+                    borderColor="white"
+                    underlayColor="#f0efeb"
+                    onPress={() => { navigateToListStudents() }}></Button>
+            </View>
+            <View style={styles.buttonBox}>
+                <Button
+                    label="4º Bimestre"
+                    color="white"
+                    textColor="#6556A0"
+                    borderColor="white"
+                    underlayColor="#f0efeb"
+                    onPress={() => { navigateToListStudents() }}></Button>
+            </View>
+            <View style={styles.buttonBox}>
+                <Button
+                    label="5º Bimestre"
+                    color="white"
+                    textColor="#6556A0"
+                    borderColor="white"
+                    underlayColor="#f0efeb"
+                    onPress={() => { navigateToListStudents() }}></Button>
+            </View>
         </View>
     );
 
