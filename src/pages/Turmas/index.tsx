@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ImageBackground, Text, Image, FlatList } from 'react-native';
+import { ImageBackground, Text, Image, FlatList, ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './style';
@@ -14,6 +14,8 @@ import { useEffect } from 'react';
 import Separator from '../../components/Separator';
 import { TurmaInterface } from '../../interface/interface';
 import SearchBox from '../../components/SearchBox';
+import firebase from 'firebase';
+import { db } from '../../config/Firebase';
 
 
 // import { Container } from './styles';
@@ -27,22 +29,22 @@ const Turmas = ({ }: Props) => {
     const navigation = useNavigation();
     const [search, setSearch] = useState<string>('')
     const [turmas, setTurmas] = useState<TurmaInterface[]>()
-    const user = 'Gustavo Miranda'
-    const turma = 'Segunda 2020-1'
+    const turmasTemp = []
 
-    const data = [
-        { id: 'a', title:'Segunda 2020-1', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'b', title:'Terça 2020-2', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'c', title:'Segunda 2020-3', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'd', title:'Segunda 2020-4', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'e', title:'Segunda 2020-5', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'f', title:'Segunda 2020-6', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'g', title:'Segunda 2020-7', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-        { id: 'h', title:'Segunda 2020-8', start:"02/02/2021", end:"02/12/2021", colorStatus:"green" },
-    ]
+    // const data = [
+    //     { id: 'a', title: 'Segunda 2020-1', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'b', title: 'Terça 2020-2', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'c', title: 'Segunda 2020-3', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'd', title: 'Segunda 2020-4', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'e', title: 'Segunda 2020-5', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'f', title: 'Segunda 2020-6', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'g', title: 'Segunda 2020-7', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    //     { id: 'h', title: 'Segunda 2020-8', start: "02/02/2021", end: "02/12/2021", colorStatus: "green" },
+    // ]
 
     useEffect(() => {
-        setTurmas(data)
+        //setTurmas(data)
+        getTurmas()
     }, [])
 
     function navigateBack() {
@@ -51,6 +53,38 @@ const Turmas = ({ }: Props) => {
 
     function navigateToCreateTurma() {
         navigation.navigate('CreateTurma');
+    }
+
+    function navigateToMenu(data) {
+        navigation.navigate('Menu', {
+            turma: data.turma,
+        });
+    }
+
+    async function getTurmas() {
+        try {
+            const data = await db
+                .collection('turmas')
+                // .where('turma', '==', turma)
+                .get()
+
+            data.forEach((doc) => {
+
+                const turma: TurmaInterface = {
+                    id : doc.id,
+                    title : doc.get("title"),
+                    start : doc.get("start"),
+                    end : doc.get("end"),
+                    status : doc.get("status"),
+                }
+                //console.log(turma)
+                turmasTemp.push(turma)
+            })
+            setTurmas(turmasTemp)
+        }
+        catch (error) {
+            alert(error)
+        }
     }
 
     function filterBySearch(Turma: TurmaInterface) {
@@ -71,13 +105,9 @@ const Turmas = ({ }: Props) => {
                         source={require("../../public/logoalt.png")}></Image>
                     <Feather name="plus-square" size={30} color="white" onPress={() => { navigateToCreateTurma() }} />
                 </View>
-                <View style={styles.navDown}>
-                    <Text style={styles.textNav}>Turma Atual</Text>
-                    <Text style={styles.textNav}>{turma}</Text>
-                </View>
             </View>
 
-            <SearchBox onChangeText={(text)=>setSearch(text)} value={search} />
+            <SearchBox onChangeText={(text) => setSearch(text)} value={search} />
 
             {
                 filtered != null ?
@@ -90,11 +120,11 @@ const Turmas = ({ }: Props) => {
                                 title={item.title}
                                 start={item.start}
                                 end={item.end}
-                                colorStatus={item.colorStatus}
+                                colorStatus={item.status ? 'green' : 'black'}
                                 onPress={() => { }}></TurmaModal>
                         )}
                     />
-                    : <Text>Carregando ...</Text>
+                    : <ActivityIndicator animating={true} color='#6556A0' size={50}/>
             }
         </View>
     )

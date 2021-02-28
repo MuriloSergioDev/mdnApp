@@ -17,22 +17,23 @@ import * as scale from 'd3-scale'
 import { render } from 'react-dom';
 import { BarChart } from "react-native-chart-kit"
 import { Dimensions } from "react-native";
-import { TouchableHighlight } from 'react-native';
+import { UserInterface } from '../../interface/interface';
+import { useState } from 'react';
 
-// import { Container } from './styles';
-
-type Props = {
-
-}
-
-
-
-const PerformanceStudent = ({ }: Props) => {
+const PerformanceStudent = ({ route }) => {
 
     const navigation = useNavigation();
-    const user = 'Gustavo Miranda'
-    const aluno = 'Romulo Martinez'
-    const turma = '2020-1'
+
+    const { name, email, password, turma, permission } = route.params
+    const [user, setUser] = useState<UserInterface>(
+        {
+            name,
+            email,
+            password,
+            turma,
+            permission
+        }
+    )
     const fill = 'rgb(134, 65, 244)'
     //const data = [{ value: 50, label: 'facil', svg: { fill: "#F0D65D" } }, { value: 100, label: 'medio', svg: { fill: '#5D6CF0' } }, { value: 30, label: 'dificil', svg: { fill: '#A05656' } }]
     //const data = [ 10, 5, 25, 15, 20 ]
@@ -76,7 +77,7 @@ const PerformanceStudent = ({ }: Props) => {
                 source={require("../../public/logo.png")}></Image>
             <View>
 
-                <Text style={styles.text}>Aluno : {aluno}</Text>
+                <Text style={styles.text}>Aluno : {user.name}</Text>
 
             </View>
             <ScrollView style={styles.scroll}>

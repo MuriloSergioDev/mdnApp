@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { ImageBackground, Text, Image } from 'react-native';
 import { View } from 'react-native';
-import styles from './styles';
+import styles from './style';
 import Button from '../../components/Button'
 import { useState } from 'react';
 import { Modal } from 'react-native';
@@ -12,7 +12,8 @@ import firebase from "firebase";
 import { TextInput } from 'react-native-paper';
 import { UserInterface } from '../../interface/interface';
 import { db } from '../../config/Firebase';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Constants from 'expo-constants';
+import { Dimensions } from 'react-native';
 
 
 // import { Container } from './styles';
@@ -26,7 +27,7 @@ type Props = {
 const Login = ({ }: Props) => {
 
 
-    
+    const [modalVisible, setModalVisible] = useState(false)
     const [user, setUser] = useState<UserInterface>(
         {
             name: '',
@@ -36,25 +37,13 @@ const Login = ({ }: Props) => {
             permission: 1
         }
     )
+    const [email, setEmail] = useState('')
 
     const navigation = useNavigation()
 
     function navigateBack() {
         navigation.goBack();
     }
-
-    function navigateToMenu(data) {
-        navigation.navigate('Menu', {
-            name: data.name,
-            turma: data.turma,
-            permission: data.permission
-        });
-    }
-
-    function navigateToRecoverPassword() {
-        navigation.navigate('RecoverPassword');
-    }
-
 
     // Initialize Firebase
     // const firebaseConfig = {
@@ -72,7 +61,7 @@ const Login = ({ }: Props) => {
 
 
 
-    //   function handleLogin(userId, score) {
+    //   function saveUser(userId, score) {
     //     firebase
     //       .database()
     //       .ref('users/' + userId)
@@ -82,7 +71,7 @@ const Login = ({ }: Props) => {
     //   }
 
 
-    // function handleLogin(userId, score) {
+    // function saveUser(userId, score) {
     //     firebase
     //         .database()
     //         .ref('users/' + userId)
@@ -91,22 +80,20 @@ const Login = ({ }: Props) => {
     //             password: user.password,
     //         });
     // }
-    async function handleLogin() {
-        try {
-            const response = await firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            if (response.user.uid) {
+    function saveUser() {
+        // firebase
+        //     .database()
+        //     .ref()
+        //     .child('users')
+        //     .push({
+        //         email: user.email,
+        //         password: user.password,
+        //     });
 
-                const data = await db
-                .collection('users')
-                .doc(response.user.uid)
-                .get()
-
-                navigateToMenu(data.data())
-            }
-        }
-        catch (error) {
-            alert(error)
-        }
+        firebase.auth()
+            .signInWithEmailAndPassword(user.email, user.password)
+            .then(() => navigation.navigate('Menu'))
+            .catch(error => console.log(error))
     }
 
     return (
@@ -114,51 +101,30 @@ const Login = ({ }: Props) => {
             <Image
                 style={styles.logo}
                 source={require("../../public/logo.png")}></Image>
-            <View>
-                <View style={styles.inputBox}>
-                    {/* @ts-ignore */}
-                    <TextInput
-                        theme={{
-                            colors: {
-                                placeholder: '#6556A0', text: '#6556A0', primary: '#6556A0'
-                            }
-                        }}
-                        style={styles.input}
-                        mode='flat'
-                        label="Email"
-                        value={user.email}
-                        onChangeText={(value => setUser(prevState => { return { ...prevState, email: value } }))}
-                    />
-                </View>
 
-                <View style={styles.inputBox}>
-                    {/* @ts-ignore */}
-                    <TextInput
-                        theme={{
-                            colors: {
-                                placeholder: '#6556A0', text: '#6556A0', primary: '#6556A0'
-                            }
-                        }}
-                        style={styles.input}
-                        secureTextEntry={true}
-                        mode='flat'
-                        label="Senha"
-                        value={user.password}
-                        onChangeText={(value => setUser(prevState => { return { ...prevState, password: value } }))}
-                    />
-                </View>
-                <TouchableOpacity onPress={() => { navigateToRecoverPassword() }}>
-                    <Text style={styles.textForget}>Esqueci minha senha</Text>
-                </TouchableOpacity>
-
+            <View style={styles.contentBox}>
+                <Text style={styles.text}>Digite seu email</Text>
+                {/* @ts-ignore */}
+                <TextInput
+                    theme={{
+                        colors: {
+                            placeholder: '#6556A0', text: '#6556A0', primary: '#6556A0'
+                        }
+                    }}
+                    style={[styles.input, { marginBottom: 180 }]}
+                    mode='flat'
+                    label="Email"
+                    value={email}
+                    onChangeText={(value => setEmail(value))}
+                />
                 <View style={styles.buttonBox}>
                     <Button
                         color='#F0D65D'
                         underlayColor='#d4bc50'
                         textColor='white'
                         borderColor='#F0D65D'
-                        label="LOGIN"
-                        onPress={() => { handleLogin() }}></Button>
+                        label="Solicitar senha"
+                        onPress={() => { setModalVisible(false) }}></Button>
                 </View>
                 <View style={styles.buttonBox}>
                     <Button
@@ -166,7 +132,7 @@ const Login = ({ }: Props) => {
                         underlayColor='#514580'
                         textColor='white'
                         borderColor='#6556A0'
-                        label="NÃO POSSUO CONTA"
+                        label="Voltar"
                         onPress={() => { navigateBack() }}></Button>
                 </View>
             </View>

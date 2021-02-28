@@ -2,18 +2,21 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ImageBackground, Text, Image, Modal } from 'react-native';
+import { StyleSheet,ImageBackground, Text, Image, Modal } from 'react-native';
 import { View } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button as ButtonPaper } from 'react-native-paper';
 import styles from './styles';
 import Button from '../../components/Button'
 import { useState } from 'react';
 import { TouchableHighlight } from 'react-native';
-import { UserInterface } from '../../interface/interface';
+import { TurmaInterface, UserInterface } from '../../interface/interface';
 import firebase from "firebase";
 import { db } from '../../config/Firebase';
+import AlertModal from '../../components/AlertModal';
+import { AntDesign } from '@expo/vector-icons';
+import RNPickerSelect from 'react-native-picker-select';
+import { useEffect } from 'react';
 
-// import { Container } from './styles';
 
 type Props = {
 
@@ -22,16 +25,23 @@ type Props = {
 const SignUp = ({ }: Props) => {
 
     const navigation = useNavigation();
-    const [modalVisible, setModalVisible] = useState(false);
-    const [turmas, setTurmas] = useState(['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado']);
-    const [turmaChosen, setTurmaChosen] = useState('');
+    const [modalTurmaVisible, setModalTurmaVisible] = useState(false);
+    const [modalAlertVisible, setModalAlertVisible] = useState(false);
+    const turmasTemp = []
+    const [turmas, setTurmas] = useState([]);
     const [user, setUser] = useState<UserInterface>(
         {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            turma: '',
+            permission: 1
         }
     )
+
+    useEffect(() => {
+        getTurmas()
+    }, [])
 
     async function handleSignUp() {
 
@@ -43,13 +53,15 @@ const SignUp = ({ }: Props) => {
                     name: user.name,
                     email: user.email,
                     password: user.password,
-                    turma: turmaChosen
+                    turma: user.turma,
+                    permission: user.permission
                 }
 
                 db.collection('users')
                     .doc(response.user.uid)
                     .set(data)
 
+                setModalAlertVisible(true)
             }
         }
         catch (error) {
@@ -57,35 +69,56 @@ const SignUp = ({ }: Props) => {
         }
     }
 
+    async function getTurmas() {
+        try {
+            const data = await db
+                .collection('turmas')
+                .where('status', '==', true)
+                .get()
 
+            data.forEach((doc) => {
+
+                const turma = {
+                    value : doc.get("title"),
+                    label : doc.get("title"),
+                }
+                //console.log(turma)
+                turmasTemp.push(turma)
+            })
+            setTurmas(turmasTemp)
+        }
+        catch (error) {
+            alert(error)
+        }
+    }
 
     function navigateBack() {
         navigation.goBack();
     }
 
-    const data = turmas.map((turma, indice) => {
-        return <TouchableHighlight
-            style={styles.turmaHighlight}
-            onPress={() => {
-                setModalVisible(!modalVisible)
-                setTurmaChosen(turma)
-            }}
-            key={indice}
-            underlayColor='#514580'
-        >
-            <Text style={styles.textStyle}>{turma}</Text>
-        </TouchableHighlight>
-    })
+    // const data = turmas.map((turma, indice) => {
+    //     return <TouchableHighlight
+    //         style={styles.turmaHighlight}
+    //         onPress={() => {
+    //             setModalTurmaVisible(!modalTurmaVisible)
+    //             setUser(prevState => { return { ...prevState, turma: turma } })
+    //         }}
+    //         key={indice}
+    //         underlayColor='#514580'
+    //     >
+    //         <Text style={styles.textStyle}>{turma}</Text>
+    //     </TouchableHighlight>
+    // })
 
     return (
         <View style={styles.container}>
             <Image
                 style={styles.logo}
                 source={require("../../public/logo.png")}></Image>
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
+                visible={modalTurmaVisible}
                 onRequestClose={() => {
                 }}
             >
@@ -97,7 +130,19 @@ const SignUp = ({ }: Props) => {
                         </View>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
+
+            <AlertModal
+                header='Cadastro realizado com sucesso'
+                comfirmationString='Ok'
+                isVisible={modalAlertVisible}
+                close={() => {
+                    setModalAlertVisible(false)
+                    navigateBack()
+                }}>
+                <AntDesign name="checkcircle" size={24} color="green" />
+            </AlertModal>
+
 
             <View style={styles.inputBox}>
                 {/* @ts-ignore */}
@@ -109,7 +154,7 @@ const SignUp = ({ }: Props) => {
                     }}
                     style={styles.input}
                     mode='flat'
-                    label="Usuario"
+                    label="Nome"
                     value={user.name}
                     onChangeText={(value => setUser(prevState => { return { ...prevState, name: value } }))}
                 />
@@ -148,11 +193,21 @@ const SignUp = ({ }: Props) => {
                 />
             </View>
 
-            <View style={styles.inputBox}>
-                <TouchableHighlight style={styles.turmaHighlightSelect} onPress={() => { setModalVisible(true) }} underlayColor='#514580'>
-                    <Text style={styles.textTurma}>{turmaChosen ? turmaChosen : 'Selecionar Turma'}</Text>
+            {/* <View style={styles.inputBox}>
+                <TouchableHighlight style={styles.turmaHighlightSelect} onPress={() => { setModalTurmaVisible(true) }} underlayColor='#514580'>
+                    <Text style={styles.textTurma}>{user.turma ? user.turma : 'Selecionar Turma'}</Text>
                 </TouchableHighlight>
+            </View> */}
+            <View style={styles.inputBoxSelect}>
+                <RNPickerSelect
+                    placeholder={{label: 'Selecione uma turma', value: null}}
+                    value={user.turma}
+                    onValueChange={(value) => setUser(prevState => { return { ...prevState, turma: value } })}
+                    items={turmas}
+                    style={pickerSelectStyles}
+                />
             </View>
+
 
             <View style={styles.buttonBox}>
                 <Button
@@ -172,8 +227,33 @@ const SignUp = ({ }: Props) => {
                     label="JÁ POSSUO CONTA"
                     onPress={() => { navigateBack() }}></Button>
             </View>
+
+
         </View>
     )
 }
 
 export default SignUp;
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'purple',
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  });

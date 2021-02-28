@@ -26,13 +26,18 @@ export default StyleSheet.create({
         fontSize: 20,
     },
     textTurma: {
-        color: 'white',
+        color: '#6556A0',
         fontSize: 20,
-        textAlign: 'center',
-        
+        textAlign: 'left',
+        marginLeft: 20,
+        width: Dimensions.get('window').width * 0.7
     },
     inputBox: {
-        marginBottom: 10
+        marginBottom: 10,
+    },
+    inputBoxSelect:{
+        width: Dimensions.get('window').width * 0.7,
+        marginVertical: 20
     },
     buttonBox: {
         marginVertical: 10,

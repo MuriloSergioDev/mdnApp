@@ -10,7 +10,8 @@ export default StyleSheet.create({
         paddingTop: Constants.statusBarHeight
     },
     logo: {
-        height: Dimensions.get('window').height* 0.3,
+        
+        height: Dimensions.get('window').height * 0.3,
         width: Dimensions.get('window').width * 0.5,
         resizeMode: "contain",
         marginBottom: 50
@@ -39,28 +40,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 50
     },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-      },
-      modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 15,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-      },
-      contentBox: {
-        height: Dimensions.get('window').height* 0.6,
-      }
+    contentBox: {
+        
+    }
 });

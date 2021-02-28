@@ -14,6 +14,7 @@ import Turmas from './pages/Turmas';
 import CreateTurma from './pages/CreateTurma';
 import ListStudents from './pages/ListStudents';
 import PerformanceStudent from './pages/PerformanceStudent';
+import RecoverPassword from './pages/RecoverPassword';
 
 const Routes = () => {
 
@@ -29,6 +30,7 @@ const Routes = () => {
                 <AppStack.Screen name="CreateTurma" component={CreateTurma} />
                 <AppStack.Screen name="ListStudents" component={ListStudents} />
                 <AppStack.Screen name="PerformanceStudent" component={PerformanceStudent} />
+                <AppStack.Screen name="RecoverPassword" component={RecoverPassword} />
             </AppStack.Navigator>
 
         </NavigationContainer>

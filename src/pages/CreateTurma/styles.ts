@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(229, 229, 229, 0.55)',
+        backgroundColor: 'rgb(229, 229, 229)',
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight
     },
@@ -41,13 +41,11 @@ export default StyleSheet.create({
         resizeMode: "contain",
     },
     input: {
-        borderBottomWidth: 2,
-        borderBottomColor: 'white',
-        borderStyle: 'solid',
+        
         padding: 5,
         fontSize: 20,
         width: Dimensions.get('window').width * 0.8,
-
+        backgroundColor: '#6556A0'
     },
     text: {
         color: 'black',

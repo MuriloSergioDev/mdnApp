@@ -5,18 +5,33 @@ import styles from './style'
 import { Ionicons } from '@expo/vector-icons';
 import Button from '../Button'
 import { useNavigation } from '@react-navigation/native';
+import { UserInterface } from '../../interface/interface';
 
 
 type Props = {
     onPress?: any
+    permission: number
+    user: UserInterface
 }
 
-const BimestreModal = ({ onPress }: Props) => {
+const BimestreModal = ({ onPress, permission, user }: Props) => {
 
     const navigation = useNavigation();
 
     function navigateToListStudents() {
-        navigation.navigate('ListStudents');
+        if (permission === 1) {
+            navigation.navigate('PerformanceStudent', {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                turma: user.turma,
+                permission: user.permission
+            });
+        } else {
+            navigation.navigate('ListStudents', {
+                turma: user.turma
+            });
+        }
     }
 
     return (

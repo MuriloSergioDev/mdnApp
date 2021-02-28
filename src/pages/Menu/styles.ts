@@ -5,13 +5,13 @@ import { Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(229, 229, 229, 0.55)',
+        backgroundColor: 'rgb(229, 229, 229)',
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight
     },
     contentBox: {
         flex: 1,
-        backgroundColor: 'rgba(229, 229, 229, 0.55)',
+        backgroundColor: 'rgb(229, 229, 229)',
         alignItems: 'center',
     },
     nav: {
@@ -20,7 +20,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         flexDirection: 'row',
-        
     },
     textNav: {
         fontSize: 20,

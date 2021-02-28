@@ -1,18 +1,38 @@
 export interface StudentInterface {
-    id : string,
+    id: string,
     name?: string,
 }
 
 export interface TurmaInterface {
-    id : string,
+    id ?: string,
     title?: string,
     start?: string,
     end?: string,
-    colorStatus: string,
+    status ?: boolean,
 }
 
 export interface UserInterface {
-    name: string
-    email: string
-    password: string
+    uid ?: string
+    name ?: string
+    email ?: string
+    password ?: string
+    turma ?: string
+    permission ?: number
 }
+
+export type RootStackParamList = {
+    Login: {
+        name: string
+        email: string
+        password: string
+        turma: string
+        permission: number
+    };
+    Menu: {
+        name: string
+        email: string
+        password: string
+        turma: string
+        permission: number
+    };
+};

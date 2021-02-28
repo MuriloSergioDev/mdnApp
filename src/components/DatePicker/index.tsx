@@ -7,12 +7,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 type Props = {
-    setDateInicio: Function,
+    setDate: Function,
     value: string,
     color ?: string
 }
 
-const DatePicker = ({ setDateInicio, value, color = 'white'}: Props) => {
+const DatePicker = ({ setDate, value, color = 'white'}: Props) => {
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -28,7 +28,7 @@ const DatePicker = ({ setDateInicio, value, color = 'white'}: Props) => {
         //console.warn("A date has been picked: ", date);
         let dataFormatada = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()
         console.log(dataFormatada)
-        setDateInicio(dataFormatada)
+        setDate(dataFormatada)
         hideDatePicker();
     };
 
