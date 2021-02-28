@@ -50,8 +50,7 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.7,
         fontSize: 20,
         textAlign: 'center',
-        marginTop: 40,
-        marginBottom: 20
+        marginVertical: 20
     },
     inputBox: {
         marginBottom: 20
@@ -113,5 +112,14 @@ export default StyleSheet.create({
         color: 'red',
         fontSize: 16,
         marginRight: 10
+    },
+    textTurma: {
+        color: '#6556A0',
+        fontSize: 20,
+        textAlign: 'center',
+      },
+    textUid:  {
+        color: 'black',
+        marginBottom : 20
     }
 });

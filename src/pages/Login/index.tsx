@@ -13,6 +13,9 @@ import { TextInput } from 'react-native-paper';
 import { UserInterface } from '../../interface/interface';
 import { db } from '../../config/Firebase';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AlertModal from '../../components/AlertModal';
+import { AntDesign } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 
 
 // import { Container } from './styles';
@@ -26,7 +29,7 @@ type Props = {
 const Login = ({ }: Props) => {
 
 
-    
+
     const [user, setUser] = useState<UserInterface>(
         {
             name: '',
@@ -38,6 +41,8 @@ const Login = ({ }: Props) => {
     )
 
     const navigation = useNavigation()
+    const [modalAlertVisible, setModalAlertVisible] = useState(false);
+    const [messageAlert, setMessageAlert] = useState('');
 
     function navigateBack() {
         navigation.goBack();
@@ -45,9 +50,11 @@ const Login = ({ }: Props) => {
 
     function navigateToMenu(data) {
         navigation.navigate('Menu', {
+            uid: data.uid,
             name: data.name,
             turma: data.turma,
-            permission: data.permission
+            permission: data.permission,
+            isModalShow: false
         });
     }
 
@@ -94,14 +101,16 @@ const Login = ({ }: Props) => {
     async function handleLogin() {
         try {
             const response = await firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            if (response.user.uid) {
-
+            if (response.user.uid && response.user.emailVerified) {
                 const data = await db
-                .collection('users')
-                .doc(response.user.uid)
-                .get()
+                    .collection('users')
+                    .doc(response.user.uid)
+                    .get()
 
                 navigateToMenu(data.data())
+            } else {
+                setMessageAlert('Seu email ainda nao foi verificado')
+                setModalAlertVisible(true)
             }
         }
         catch (error) {
@@ -109,12 +118,25 @@ const Login = ({ }: Props) => {
         }
     }
 
+    let modalIcon = messageAlert == ' ' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
+
     return (
         <View style={styles.container}>
             <Image
                 style={styles.logo}
                 source={require("../../public/logo.png")}></Image>
             <View>
+
+                <AlertModal
+                    header={messageAlert}
+                    comfirmationString='Ok'
+                    isVisible={modalAlertVisible}
+                    close={() => {
+                        setModalAlertVisible(false)
+                    }}>
+                    {modalIcon}
+                </AlertModal>
+
                 <View style={styles.inputBox}>
                     {/* @ts-ignore */}
                     <TextInput
@@ -156,7 +178,6 @@ const Login = ({ }: Props) => {
                         color='#F0D65D'
                         underlayColor='#d4bc50'
                         textColor='white'
-                        borderColor='#F0D65D'
                         label="LOGIN"
                         onPress={() => { handleLogin() }}></Button>
                 </View>
@@ -165,7 +186,6 @@ const Login = ({ }: Props) => {
                         color='#6556A0'
                         underlayColor='#514580'
                         textColor='white'
-                        borderColor='#6556A0'
                         label="NÃO POSSUO CONTA"
                         onPress={() => { navigateBack() }}></Button>
                 </View>

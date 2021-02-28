@@ -16,7 +16,9 @@ import { TurmaInterface } from '../../interface/interface';
 import SearchBox from '../../components/SearchBox';
 import firebase from 'firebase';
 import { db } from '../../config/Firebase';
-
+import AlertModal from '../../components/AlertModal';
+import { AntDesign } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 
 // import { Container } from './styles';
 
@@ -29,6 +31,8 @@ const Turmas = ({ }: Props) => {
     const navigation = useNavigation();
     const [search, setSearch] = useState<string>('')
     const [turmas, setTurmas] = useState<TurmaInterface[]>()
+    const [modalAlertVisible, setModalAlertVisible] = useState(false);
+    const [messageAlert, setMessageAlert] = useState('');
     const turmasTemp = []
 
     // const data = [
@@ -55,6 +59,15 @@ const Turmas = ({ }: Props) => {
         navigation.navigate('CreateTurma');
     }
 
+    function navigateToTurmaDetail(turma: TurmaInterface ) {
+        
+        navigation.navigate('TurmaDetail',{
+            id: turma.id,
+            title: turma.title,
+            status: turma.status
+        });
+    }
+
     function navigateToMenu(data) {
         navigation.navigate('Menu', {
             turma: data.turma,
@@ -65,7 +78,6 @@ const Turmas = ({ }: Props) => {
         try {
             const data = await db
                 .collection('turmas')
-                // .where('turma', '==', turma)
                 .get()
 
             data.forEach((doc) => {
@@ -93,7 +105,7 @@ const Turmas = ({ }: Props) => {
     }
 
     const filtered = turmas?.filter(filterBySearch)
-
+    let modalIcon = messageAlert== 'Turma excluida com sucesso' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
 
     return (
         <View style={styles.container}>
@@ -108,7 +120,15 @@ const Turmas = ({ }: Props) => {
             </View>
 
             <SearchBox onChangeText={(text) => setSearch(text)} value={search} />
-
+            <AlertModal
+                header={messageAlert}
+                comfirmationString='Ok'
+                isVisible={modalAlertVisible}
+                close={() => {
+                    setModalAlertVisible(false)
+                }}>
+                {modalIcon}
+            </AlertModal>
             {
                 filtered != null ?
                     <FlatList
@@ -117,11 +137,18 @@ const Turmas = ({ }: Props) => {
                         ItemSeparatorComponent={() => <Separator />}
                         renderItem={({ item }) => (
                             <TurmaModal
-                                title={item.title}
-                                start={item.start}
-                                end={item.end}
+                                showAlertModalSucess={()=>{
+                                    setMessageAlert('Turma excluida com sucesso')
+                                    setModalAlertVisible(true)
+                                    getTurmas()
+                                }}
+                                showAlertModalFail={()=>{
+                                    setMessageAlert('Erro ao excluir turma')
+                                    setModalAlertVisible(true)
+                                }}
+                                turma={item}
                                 colorStatus={item.status ? 'green' : 'black'}
-                                onPress={() => { }}></TurmaModal>
+                                onPress={() => { navigateToTurmaDetail(item)}}></TurmaModal>
                         )}
                     />
                     : <ActivityIndicator animating={true} color='#6556A0' size={50}/>

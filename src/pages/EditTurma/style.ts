@@ -42,7 +42,6 @@ export default StyleSheet.create({
         shadowRadius: 3.84,
 
         elevation: 5,
-        
     },
     logo: {
         height: Dimensions.get('window').height * 0.1,
@@ -84,5 +83,15 @@ export default StyleSheet.create({
     },
     datePicker: {
         width: Dimensions.get('window').width* 0.8 
+    },
+    containerAtivo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 10,
+        marginHorizontal: 20
+    },
+    textAtivo: {
+        color:  'white',
+        fontWeight: 'bold'
     }
 });

@@ -18,7 +18,6 @@ export default StyleSheet.create({
     textNav: {
         fontSize: 20,
         color: 'white',
-        marginTop: 20
     },
     navUp: {
         width: Dimensions.get('window').width*0.9,
@@ -27,22 +26,11 @@ export default StyleSheet.create({
         alignItems:'center'
     },
     navDown: {
-        width: Dimensions.get('window').width*0.9,
-        flexDirection: 'column',
-        padding:20,
-        marginVertical: 10,
-        backgroundColor: '#6556A0',
-        borderRadius:20,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
-        
+        width: Dimensions.get('window').width,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems:'center',
+        paddingHorizontal: 20        
     },
     logo: {
         height: Dimensions.get('window').height * 0.1,
@@ -50,18 +38,20 @@ export default StyleSheet.create({
         resizeMode: "contain",
     },
     input: {
-        
+        borderBottomWidth: 2,
+        borderBottomColor: '#6556A0',
+        borderStyle: 'solid',
         padding: 5,
         fontSize: 20,
-        width: Dimensions.get('window').width * 0.8,
-        backgroundColor: '#6556A0'
+        width: Dimensions.get('window').width * 0.7,
+
     },
     text: {
         color: 'black',
         width: Dimensions.get('window').width * 0.7,
         fontSize: 20,
         textAlign: 'center',
-        marginBottom: 20
+        marginVertical: 20
     },
     inputBox: {
         marginBottom: 20
@@ -82,7 +72,17 @@ export default StyleSheet.create({
         alignItems: 'center',
         flexWrap: 'wrap'
     },
-    datePicker: {
-        width: Dimensions.get('window').width* 0.8 
+    textTurma: {
+        color: '#6556A0',
+        fontSize: 20,
+        textAlign: 'center',
+      },
+    sliderBox: {
+        width: Dimensions.get('window').width * 0.7,
+        height: 50
+    },
+    textSliderBox:{
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });

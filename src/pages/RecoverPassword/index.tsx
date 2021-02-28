@@ -14,9 +14,9 @@ import { UserInterface } from '../../interface/interface';
 import { db } from '../../config/Firebase';
 import Constants from 'expo-constants';
 import { Dimensions } from 'react-native';
-
-
-// import { Container } from './styles';
+import { Foundation } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import AlertModal from '../../components/AlertModal';
 
 type Props = {
 
@@ -27,7 +27,9 @@ type Props = {
 const Login = ({ }: Props) => {
 
 
-    const [modalVisible, setModalVisible] = useState(false)
+
+    const [messageAlert, setMessageAlert] = useState('');
+    const [modalAlertVisible, setModalAlertVisible] = useState(false);
     const [user, setUser] = useState<UserInterface>(
         {
             name: '',
@@ -45,62 +47,44 @@ const Login = ({ }: Props) => {
         navigation.goBack();
     }
 
-    // Initialize Firebase
-    // const firebaseConfig = {
-    //     apiKey: 'AAAAukYUJLI:APA91bEu9Z0TbBqtIvk0rG3ZVuHNrJfpDloYO7DVKwMoAQlnnVY-GmjR__DRePkinHSywrR7B5KzdRG1ka6EGKY5EU1vAhG_cuh4PBXOIHsn3BIr83Dze7YVod9UaKEpUdK9VrSD54yL',
-    //     authDomain: 'mdnappusers-b9ad2.firebaseapp.com',
-    //     databaseURL: 'https://mdnappusers-b9ad2-default-rtdb.firebaseio.com/',
-    //     projectId: 'mdnappusers-b9ad2',
-    //      storageBucket: 'mdnappusers-b9ad2.appspot.com',
-    //     // messagingSenderId: 'sender-id',
-    //     // appId: 'app-id',
-    //     // measurementId: 'G-measurement-id',
-    //   };
+    function handleRecoverPassword() {
 
-    //   firebase.initializeApp(firebaseConfig);
+        var auth = firebase.auth();
+        if (email) {
+            auth.sendPasswordResetEmail(email).then(function () {
+                setMessageAlert('Email para redefinição enviado')
+                setModalAlertVisible(true)
+            }).catch(function (error) {
+                setMessageAlert('Erro ao enviar email')
+                setModalAlertVisible(true)
+            });
+        }else{
+            setMessageAlert('Escreva um email válido')
+            setModalAlertVisible(true)
+        }
 
-
-
-    //   function saveUser(userId, score) {
-    //     firebase
-    //       .database()
-    //       .ref('users/' + userId)
-    //       .set({
-    //         highscore: score,
-    //       });
-    //   }
-
-
-    // function saveUser(userId, score) {
-    //     firebase
-    //         .database()
-    //         .ref('users/' + userId)
-    //         .set({
-    //             email: user.email,
-    //             password: user.password,
-    //         });
-    // }
-    function saveUser() {
-        // firebase
-        //     .database()
-        //     .ref()
-        //     .child('users')
-        //     .push({
-        //         email: user.email,
-        //         password: user.password,
-        //     });
-
-        firebase.auth()
-            .signInWithEmailAndPassword(user.email, user.password)
-            .then(() => navigation.navigate('Menu'))
-            .catch(error => console.log(error))
     }
+
+    let modalIcon = messageAlert == 'Email para redefinição enviado' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
 
     return (
         <View style={styles.container}>
             <Image
                 style={styles.logo}
                 source={require("../../public/logo.png")}></Image>
+
+            <AlertModal
+                header={messageAlert}
+                comfirmationString='Ok'
+                isVisible={modalAlertVisible}
+                close={() => {
+                    setModalAlertVisible(false)
+                    if (messageAlert == 'Cadastro realizado com sucesso') {
+                        navigateBack()
+                    }
+                }}>
+                {modalIcon}
+            </AlertModal>
 
             <View style={styles.contentBox}>
                 <Text style={styles.text}>Digite seu email</Text>
@@ -124,7 +108,7 @@ const Login = ({ }: Props) => {
                         textColor='white'
                         borderColor='#F0D65D'
                         label="Solicitar senha"
-                        onPress={() => { setModalVisible(false) }}></Button>
+                        onPress={() => { handleRecoverPassword() }}></Button>
                 </View>
                 <View style={styles.buttonBox}>
                     <Button

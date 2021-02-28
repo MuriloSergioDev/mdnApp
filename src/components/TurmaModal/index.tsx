@@ -1,20 +1,22 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacityBase, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacityBase, TouchableOpacity, Alert } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './style'
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { TurmaInterface } from '../../interface/interface';
+import { db } from '../../config/Firebase';
 
 type Props = {
-    title?: string
-    start?: string
-    end?: string
+    turma?: TurmaInterface
     colorStatus?: string
     onPress?: any
+    showAlertModalSucess?: Function
+    showAlertModalFail?: Function
 }
 
-const TurmaModal = ({ title, start, end, colorStatus = "black", onPress }: Props) => {
+const TurmaModal = ({ turma, colorStatus = "black", onPress, showAlertModalSucess, showAlertModalFail }: Props) => {
 
     const navigation = useNavigation();
 
@@ -23,11 +25,55 @@ const TurmaModal = ({ title, start, end, colorStatus = "black", onPress }: Props
     }
 
     function handleTurmaDelete() {
-        console.log('deletar turma')
+        console.log('deletar aluno')
+
+        // Works on both Android and iOS
+        Alert.alert(
+            'Deseja mesmo excluir o aluno',
+            '',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => {
+                        
+                        // const data = {
+                        //     id: turma.id,
+                        //     title: turma.title,
+                        //     start: turma.start,
+                        //     end: turma.end,
+                        //     status: turma.status,
+                        //     ativo: 0
+                        // }
+                        // db.collection('turmas')
+                        //     .doc(turma.id)
+                        //     .set(data)
+                        db.collection("turmas").doc(turma.id).delete().then(function () {
+                            //console.log("Document successfully deleted!");
+                            showAlertModalSucess();
+                        }).catch(function (error) {
+                            //console.error("Error removing document: ", error);
+                            showAlertModalFail();
+                        });
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
     }
 
     function handleTurmaEdit() {
         console.log('editar turma')
+        navigation.navigate('EditTurma', {
+            id: turma.id,
+            title: turma.title,
+            start: turma.start,
+            end: turma.end,
+            status: turma.status,
+        });
     }
 
     function rightActions(progress, dragX) {
@@ -36,14 +82,14 @@ const TurmaModal = ({ title, start, end, colorStatus = "black", onPress }: Props
                 <TouchableOpacity onPress={() => { handleTurmaDelete() }}>
                     <View style={styles.deleteAction}>
                         <Text style={styles.textAction}>Excluir</Text>
-                        <Feather name="trash-2" size={20} color="white"/>
+                        <Feather name="trash-2" size={20} color="white" />
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => { handleTurmaEdit() }}>
                     <View style={styles.editAction}>
                         <Text style={styles.textAction}>Editar</Text>
-                        <Feather name="trash-2" size={20} color="white"/>
+                        <Feather name="trash-2" size={20} color="white" />
                     </View>
                 </TouchableOpacity>
             </>
@@ -56,10 +102,10 @@ const TurmaModal = ({ title, start, end, colorStatus = "black", onPress }: Props
                 <View style={styles.container} >
                     <Feather name="circle" size={20} color={colorStatus} />
                     <View style={styles.viewBox}>
-                        <Text style={styles.textTitle}>{title}</Text>
+                        <Text style={styles.textTitle}>{turma.title}</Text>
                         <View style={styles.periodBox}>
-                            <Text style={styles.textPeriod}>{start}</Text>
-                            <Text style={styles.textPeriod}>{end}</Text>
+                            <Text style={styles.textPeriod}>{turma.start}</Text>
+                            <Text style={styles.textPeriod}>{turma.end}</Text>
                         </View>
                     </View>
                 </View>
@@ -72,5 +118,3 @@ const TurmaModal = ({ title, start, end, colorStatus = "black", onPress }: Props
 
 
 export default TurmaModal;
-
-

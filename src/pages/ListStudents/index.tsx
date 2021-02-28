@@ -15,10 +15,15 @@ import { TouchableHighlight } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import { Feather } from '@expo/vector-icons';
+import firebase from 'firebase';
+import AlertModal from '../../components/AlertModal';
+import { AntDesign } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 
 const CreateTurma = ({ route }) => {
 
     const navigation = useNavigation();
+    const [messageAlert, setMessageAlert] = useState('');
     const [search, setSearch] = useState<string>('')
     const [students, setStudents] = useState<UserInterface[]>()
     const [modalTurmaVisible, setModalTurmaVisible] = useState(false);
@@ -27,13 +32,22 @@ const CreateTurma = ({ route }) => {
     //,'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'
     const [turma, setTurma] = useState();
     const studentsTemp = []
+    const [user, setUser] = useState<UserInterface>()
+    const [modalAlertVisible, setModalAlertVisible] = useState(false);
+    let userTemp: UserInterface = {
+
+    }
 
     useEffect(() => {
         getStudents()
         getTurmas()
+        getUser()
     }, [])
 
     async function getStudents() {
+        while(studentsTemp.length){
+            studentsTemp.pop()
+        }
         try {
             const data = await db
                 .collection('users')
@@ -45,6 +59,48 @@ const CreateTurma = ({ route }) => {
                 studentsTemp.push(doc.data())
             })
             setStudents(studentsTemp)
+            // db.collection("users").where('permission', '==', 1).where('ativo', '==', 1)
+            //     .onSnapshot(function (snapshot) {
+            //         snapshot.docChanges().forEach(function (change) {
+            //             if (change.type === "added") {
+            //                 console.log("New Student: ", change.doc.data());
+            //                 studentsTemp.push(change.doc.data())
+            //             }
+            //             if (change.type === "modified") {
+            //                 console.log("Modified Student: ", change.doc.data());
+            //                 studentsTemp.push(change.doc.data())
+            //             }
+            //             if (change.type === "removed") {
+            //                 console.log("Removed2 Student: ", change.doc.data());
+            //             }
+            //         });
+            //         setStudents(studentsTemp)
+            //     });
+        }
+        catch (error) {
+            alert(error)
+        }
+    }
+
+    async function getUser() {
+        try {
+            const data = await db
+                .collection('users')
+                .where('uid', '==', firebase.auth().currentUser.uid)
+                .get()
+
+            data.forEach((doc) => {
+
+                const values = {
+                    uid: doc.get("uid"),
+                    name: doc.get("name"),
+                    turma: doc.get("turma"),
+                    permission: doc.get("permission"),
+                }
+                userTemp = values
+            })
+
+            setUser(userTemp)
         }
         catch (error) {
             alert(error)
@@ -61,8 +117,8 @@ const CreateTurma = ({ route }) => {
             data.forEach((doc) => {
 
                 const turma = {
-                    value : doc.get("title"),
-                    label : doc.get("title"),
+                    value: doc.get("title"),
+                    label: doc.get("title"),
                 }
                 //console.log(turma)
                 turmasTemp.push(turma)
@@ -81,8 +137,17 @@ const CreateTurma = ({ route }) => {
     function navigateToCharts(data) {
         navigation.navigate('PerformanceStudent', {
             name: data.name,
-            turma: data.turma,
             uid: data.uid
+        });
+    }
+
+    function navigateToMenu() {
+        navigation.navigate('Menu', {
+            name: user.name,
+            uid: user.uid,
+            turma: user.turma,
+            permission: user.permission,
+            isModalShow: true
         });
     }
 
@@ -96,6 +161,7 @@ const CreateTurma = ({ route }) => {
     }
 
     const filtered = students?.filter(filterBySearch)
+    let modalIcon = messageAlert == 'Aluno excluido com sucesso' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
 
     return (
         <View style={styles.container}>
@@ -107,10 +173,19 @@ const CreateTurma = ({ route }) => {
                         source={require("../../public/logoalt.png")}></Image>
                 </View>
             </View>
+            <AlertModal
+                header={messageAlert}
+                comfirmationString='Ok'
+                isVisible={modalAlertVisible}
+                close={() => {
+                    setModalAlertVisible(false)
+                }}>
+                {modalIcon}
+            </AlertModal>
             <View style={styles.inputBox}>
                 <Text style={styles.textTurma}>Turma</Text>
                 <RNPickerSelect
-                    placeholder={{label: 'Selecione uma turma', value: null}}
+                    placeholder={{ label: 'Selecione uma turma', value: null }}
                     value={turma}
                     onValueChange={(value) => setTurma(value)}
                     items={turmas}
@@ -129,7 +204,16 @@ const CreateTurma = ({ route }) => {
                         ItemSeparatorComponent={() => <Separator />}
                         renderItem={({ item }) => (
                             <StudentModal
-                                name={item.name}
+                                showAlertModalSucess={() => { 
+                                    getStudents()
+                                    setMessageAlert('Aluno excluido com sucesso')
+                                    setModalAlertVisible(true)
+                                }}
+                                showAlertModalFail={() => { 
+                                    setMessageAlert('Erro ao excluir aluno')
+                                    setModalAlertVisible(true)
+                                }}
+                                user={item}
                                 colorStatus="green"
                                 onPress={() => { navigateToCharts(item) }}><Entypo name="emoji-happy" size={24} color="green" /></StudentModal>
                         )}
@@ -145,23 +229,23 @@ export default CreateTurma;
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 16,
-      paddingVertical: 12,
-      paddingHorizontal: 10,
-      borderWidth: 1,
-      borderColor: 'gray',
-      borderRadius: 4,
-      color: 'black',
-      paddingRight: 30, // to ensure the text is never behind the icon
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
     },
     inputAndroid: {
-      fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: 'purple',
-      borderRadius: 8,
-      color: 'black',
-      paddingRight: 30, // to ensure the text is never behind the icon
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
     },
-  });
+});

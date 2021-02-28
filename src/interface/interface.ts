@@ -20,6 +20,15 @@ export interface UserInterface {
     permission ?: number
 }
 
+export interface DesempenhoInterface {
+    uid ?: string
+    facil ?: number
+    medio ?: number
+    dificil ?: number
+    bimestre ?: number
+    turma ?: string
+}
+
 export type RootStackParamList = {
     Login: {
         name: string

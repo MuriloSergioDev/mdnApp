@@ -22,7 +22,7 @@ const Button = ({ label, color, underlayColor, textColor, borderColor, onPress, 
             onPress={onPress}
             style={[
                 styles.container,
-                { backgroundColor: color, borderColor: borderColor }]}>
+                { backgroundColor: color,  borderColor: borderColor, borderWidth:  borderColor? 1  :  0 }]}>
             <View style={styles.viewBox}>
                 {children}
                 <Text style={[styles.text, { color: textColor }]}>{label}</Text>

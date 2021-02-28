@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ImageBackground, Text, Image } from 'react-native';
+import { ImageBackground, Text, Image, Switch } from 'react-native';
 import { View } from 'react-native';
-import styles from './styles'
+import styles from './style'
 import Button from '../../components/Button'
 import TurmaModal from '../../components/TurmaModal'
 import { Feather } from '@expo/vector-icons';
@@ -20,24 +20,33 @@ import firebase from 'firebase';
 import AlertModal from '../../components/AlertModal';
 import { AntDesign } from '@expo/vector-icons';
 import { db } from '../../config/Firebase';
-import { Foundation } from '@expo/vector-icons';
+import style from '../../components/AlertModal/style';
+import { Entypo } from '@expo/vector-icons';
+
+
+// import { Container } from './styles';
 
 type Props = {
 
 }
 
-const CreateTurma = ({ }: Props) => {
-
+const EditTurma = ({ route }) => {
+    
+    const { id, title, start, end, status } = route.params
     const navigation = useNavigation();
+    const user = 'Gustavo Miranda'
 
-    const [messageAlert, setMessageAlert] = useState('');
     const [turma, setTurma] = useState<TurmaInterface>({
-        title: '',
-        status: true
+        id,
+        title,
+        start,
+        end,
+        status,
     })
-    const [dateInicio, setDateInicio] = useState("")
-    const [dateFim, setDateFim] = useState("")
+    const [dateInicio, setDateInicio] = useState(start)
+    const [dateFim, setDateFim] = useState(end)
     const [modalAlertVisible, setModalAlertVisible] = useState(false);
+    
 
     function navigateBack() {
         navigation.goBack();
@@ -47,44 +56,27 @@ const CreateTurma = ({ }: Props) => {
         navigation.navigate('Menu');
     }
 
-    async function handleCreateNewTurma() {
+    async function handleUpdateTurma() {
 
         try {
-
-            if (turma.title && dateInicio && dateFim) {
-
-                const refTurma = db.collection('turmas')
-                    .doc()
-
-                const data = {
-                    id: refTurma.id,
-                    title: turma.title,
-                    start: dateInicio,
-                    end: dateFim,
-                    status: turma.status,
-                }
-                refTurma.set(data, { merge: true });
-
-                //console.log(refTurma.id)
-
-                setMessageAlert('Turma criada com sucesso')
-                setModalAlertVisible(true)
-            } else {
-                setMessageAlert('Preencha todos os campos')
-                setModalAlertVisible(true)
+            const data = {
+                title: turma.title,
+                start: dateInicio,
+                end: dateFim,
+                status: turma.status,
             }
 
+            db.collection('turmas')
+                .doc(turma.id)
+                .update(data)
 
+            setModalAlertVisible(true)
 
         }
         catch (error) {
-            setMessageAlert('Erro ao criar turma')
-            setModalAlertVisible(true)
-            //alert(error)
+            alert(error)
         }
     }
-
-    let modalIcon = messageAlert == 'Turma criada com sucesso' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
 
     return (
         <View style={styles.container}>
@@ -94,26 +86,34 @@ const CreateTurma = ({ }: Props) => {
                     <Image
                         style={styles.logo}
                         source={require("../../public/logoalt.png")}></Image>
-                    <Feather name="plus" size={30} color="white" onPress={() => { handleCreateNewTurma() }} />
+                    <Entypo name="save" size={30} color="white" onPress={() => { handleUpdateTurma() }} />
                 </View>
 
             </View>
 
             <AlertModal
-                header={messageAlert}
+                header='Turma editada com sucesso'
                 comfirmationString='Ok'
                 isVisible={modalAlertVisible}
                 close={() => {
                     setModalAlertVisible(false)
-                    if (messageAlert == 'Turma criada com sucesso') {
-                        navigateToMenu()
-                    }
+                    navigateToMenu()
                 }}>
-                {modalIcon}
+                <AntDesign name="checkcircle" size={24} color="green" />
             </AlertModal>
 
             <View style={styles.navDown}>
-
+                <View style={styles.containerAtivo}>
+                    <Text style={styles.textAtivo}>Ativar / Desativar</Text>
+                    <Switch
+                        trackColor={{ false: "#767577", true: "green" }}
+                        thumbColor={turma.status ? "#f4f3f4" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={(value => setTurma(prevState => { return { ...prevState, status: value } }))}
+                        value={turma.status}
+                        style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }}
+                    />
+                </View>
                 {/* @ts-ignore */}
                 <TextInput
                     theme={{
@@ -133,9 +133,10 @@ const CreateTurma = ({ }: Props) => {
 
                 <Text style={styles.textNav}>Fim</Text>
                 <DatePicker setDate={setDateFim} value={dateFim}></DatePicker>
+
             </View>
         </View>
     )
 }
 
-export default CreateTurma;
+export default EditTurma;

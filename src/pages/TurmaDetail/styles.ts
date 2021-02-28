@@ -14,6 +14,7 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width,
         alignItems: 'center',
         padding: 10,
+        marginBottom: 10
     },
     textNav: {
         fontSize: 20,
@@ -30,7 +31,7 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width*0.9,
         flexDirection: 'column',
         padding:20,
-        marginVertical: 10,
+        marginVertical: 20,
         backgroundColor: '#6556A0',
         borderRadius:20,
         shadowColor: "#000",
@@ -40,14 +41,14 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
-        
     },
     logo: {
         height: Dimensions.get('window').height * 0.1,
         width: Dimensions.get('window').width * 0.2,
         resizeMode: "contain",
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     input: {
         
@@ -67,8 +68,7 @@ export default StyleSheet.create({
         marginBottom: 20
     },
     buttonBox: {
-        marginTop: 'auto',
-        marginBottom: 20
+        marginTop: 20
     },
     buttonMenuBox: {
         justifyContent: 'space-around',
@@ -84,5 +84,18 @@ export default StyleSheet.create({
     },
     datePicker: {
         width: Dimensions.get('window').width* 0.8 
+    },
+    containerAtivo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 10,
+        marginHorizontal: 20
+    },
+    textAtivo: {
+        color:  'white',
+        fontWeight: 'bold'
+    },
+    containerContent: {
+        alignItems: 'center',
     }
 });
