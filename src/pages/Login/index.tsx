@@ -1,13 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { ImageBackground, Text, Image } from 'react-native';
+import React from 'react';
+import { Text, Image } from 'react-native';
 import { View } from 'react-native';
 import styles from './styles';
 import Button from '../../components/Button'
 import { useState } from 'react';
-import { Modal } from 'react-native';
 import firebase from "firebase";
 import { TextInput } from 'react-native-paper';
 import { UserInterface } from '../../interface/interface';
@@ -17,14 +14,9 @@ import AlertModal from '../../components/AlertModal';
 import { AntDesign } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 
-
-// import { Container } from './styles';
-
 type Props = {
 
 }
-
-// firebase.analytics()
 
 const Login = ({ }: Props) => {
 
@@ -62,42 +54,6 @@ const Login = ({ }: Props) => {
         navigation.navigate('RecoverPassword');
     }
 
-
-    // Initialize Firebase
-    // const firebaseConfig = {
-    //     apiKey: 'AAAAukYUJLI:APA91bEu9Z0TbBqtIvk0rG3ZVuHNrJfpDloYO7DVKwMoAQlnnVY-GmjR__DRePkinHSywrR7B5KzdRG1ka6EGKY5EU1vAhG_cuh4PBXOIHsn3BIr83Dze7YVod9UaKEpUdK9VrSD54yL',
-    //     authDomain: 'mdnappusers-b9ad2.firebaseapp.com',
-    //     databaseURL: 'https://mdnappusers-b9ad2-default-rtdb.firebaseio.com/',
-    //     projectId: 'mdnappusers-b9ad2',
-    //      storageBucket: 'mdnappusers-b9ad2.appspot.com',
-    //     // messagingSenderId: 'sender-id',
-    //     // appId: 'app-id',
-    //     // measurementId: 'G-measurement-id',
-    //   };
-
-    //   firebase.initializeApp(firebaseConfig);
-
-
-
-    //   function handleLogin(userId, score) {
-    //     firebase
-    //       .database()
-    //       .ref('users/' + userId)
-    //       .set({
-    //         highscore: score,
-    //       });
-    //   }
-
-
-    // function handleLogin(userId, score) {
-    //     firebase
-    //         .database()
-    //         .ref('users/' + userId)
-    //         .set({
-    //             email: user.email,
-    //             password: user.password,
-    //         });
-    // }
     async function handleLogin() {
         try {
             const response = await firebase.auth().signInWithEmailAndPassword(user.email, user.password)

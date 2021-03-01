@@ -1,13 +1,10 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState } from 'react';
-import { ImageBackground, Text, Image, SafeAreaView } from 'react-native';
+import { Text, Image } from 'react-native';
 import { View } from 'react-native';
-import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styles';
 import Button from '../../components/Button'
 import ButtonMenu from '../../components/ButtonMenu'
-import BimestreModal from '../../components/BimestreModal'
 import { Feather } from '@expo/vector-icons';
 import { UserInterface } from '../../interface/interface';
 import firebase from "firebase";
@@ -53,7 +50,6 @@ const Menu = ({ route }) => {
     }
 
     function handleSignOut() {
-        firebase.auth().signOut()
         firebase.auth().signOut().then(() => {
             navigateBack()
           }).catch((error) => {
@@ -63,7 +59,7 @@ const Menu = ({ route }) => {
     const drawerRef = useRef(null);
     function renderDrawer() {
         return (
-            <Sidebar name={user.name} permission={user.permission} />
+            <Sidebar name={user.name} permission={user.permission} uid={user.uid} />
         );
     };
 
@@ -133,8 +129,6 @@ const Menu = ({ route }) => {
                                 onPress={() => { handleSignOut() }}></Button>
                         </View>
                     </View>
-
-
                 </View>
             </DrawerLayout>
         </View>

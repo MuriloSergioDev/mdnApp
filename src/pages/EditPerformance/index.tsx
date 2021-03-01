@@ -1,21 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ImageBackground, Text, Image, FlatList, ActivityIndicator } from 'react-native';
+import { Text, Image } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 import styles from './style';
-import Button from '../../components/Button'
-import TurmaModal from '../../components/TurmaModal'
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Separator from '../../components/Separator';
-import { DesempenhoInterface, TurmaInterface, UserInterface } from '../../interface/interface';
-import SearchBox from '../../components/SearchBox';
-import firebase from 'firebase';
+import { DesempenhoInterface, UserInterface } from '../../interface/interface';
 import { db } from '../../config/Firebase';
 import Slider from '@react-native-community/slider';
 import RNPickerSelect from 'react-native-picker-select';

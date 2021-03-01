@@ -1,15 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, ImageBackground, Text, Image, Modal, ActivityIndicator } from 'react-native';
+import { StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
-import { TextInput, Button as ButtonPaper } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import styles from './styles';
-import Button from '../../components/Button'
 import { useState } from 'react';
-import { TouchableHighlight } from 'react-native';
-import { DesempenhoInterface, TurmaInterface, UserInterface } from '../../interface/interface';
+import { UserInterface } from '../../interface/interface';
 import firebase from "firebase";
 import { db } from '../../config/Firebase';
 import AlertModal from '../../components/AlertModal';

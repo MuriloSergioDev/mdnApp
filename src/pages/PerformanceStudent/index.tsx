@@ -1,20 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { ImageBackground, Text, Image, TouchableOpacity,Clipboard } from 'react-native';
+import { Text, Image, TouchableOpacity,Clipboard } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import styles from './style'
 import Button from '../../components/Button'
-import StudentModal from '../../components/StudentModal'
-import BarChartExample from '../../components/BarChartExample'
-import { Feather } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-//import { BarChart, Grid, XAxis, YAxis } from 'react-native-svg-charts'
-import * as scale from 'd3-scale'
-import { render } from 'react-dom';
 import { BarChart } from "react-native-chart-kit"
 import { Dimensions } from "react-native";
 import { DesempenhoInterface, UserInterface } from '../../interface/interface';
@@ -39,9 +29,7 @@ const PerformanceStudent = ({ route }) => {
             uid,
         }
     )
-    const fill = 'rgb(134, 65, 244)'
-    //const data = [{ value: 50, label: 'facil', svg: { fill: "#F0D65D" } }, { value: 100, label: 'medio', svg: { fill: '#5D6CF0' } }, { value: 30, label: 'dificil', svg: { fill: '#A05656' } }]
-    //const data = [ 10, 5, 25, 15, 20 ]
+    
     const screenWidth = Dimensions.get("window").width;
     const [dataChart, setDataChart] = useState({
         labels: ["Facil", "Medio", "Dificil"],
@@ -52,7 +40,6 @@ const PerformanceStudent = ({ route }) => {
         ],
         barColors: ["red", "yellow", "blue"]
     })
-    const data2 = [0, 100]
     const chartConfig = {
         backgroundGradientFrom: "rgba(229, 229, 229, 0.55)",
         backgroundGradientTo: "rgba(229, 229, 229, 0.55)",
@@ -70,13 +57,6 @@ const PerformanceStudent = ({ route }) => {
 
     function navigateBack() {
         navigation.goBack();
-    }
-
-    function navigateToCharts() {
-        navigation.navigate('Login');
-    }
-    function handleTurmaDelete() {
-        console.log('deletar aluno')
     }
 
     async function getDesempenho() {
@@ -173,14 +153,6 @@ const PerformanceStudent = ({ route }) => {
                     showBarTops={false}
                 />
             </ScrollView>
-
-            {/* Button delete alternativo */}
-            {/* <TouchableHighlight onPress={() => { handleTurmaDelete() }} underlayColor="lightgray">
-                    <View style={styles.containerExclusion}>
-                        <Text style={styles.textExclusion}>Excluir Aluno</Text>
-                        <Feather name="trash-2" size={20} color="red" onPress={()=>{handleTurmaDelete()}}/>
-                    </View>
-                </TouchableHighlight> */}
 
             <View style={styles.buttonBox}>
                 <Button

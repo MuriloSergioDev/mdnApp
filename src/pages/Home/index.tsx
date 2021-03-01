@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, ImageBackground, Text } from 'react-native';
+import { Image, ImageBackground } from 'react-native';
 import { View } from 'react-native';
 import styles from './styles';
 import Button from '../../components/Button'
@@ -24,6 +23,8 @@ const Home = ({ }: Props) => {
     function navigateToSignUp() {
         navigation.navigate('SignUp');
     }
+
+    console.log(process.env.REACT_APP_API_KEY)
 
     return (
         <ImageBackground source={require("../../public/backimg.jpg")} style={styles.backgroundimage}>

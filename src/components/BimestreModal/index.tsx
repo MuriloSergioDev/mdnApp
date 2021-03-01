@@ -1,6 +1,5 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacityBase } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import React from 'react';
+import { View, Text } from 'react-native';
 import styles from './style'
 import { Ionicons } from '@expo/vector-icons';
 import Button from '../Button'

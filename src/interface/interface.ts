@@ -28,20 +28,3 @@ export interface DesempenhoInterface {
     bimestre ?: number
     turma ?: string
 }
-
-export type RootStackParamList = {
-    Login: {
-        name: string
-        email: string
-        password: string
-        turma: string
-        permission: number
-    };
-    Menu: {
-        name: string
-        email: string
-        password: string
-        turma: string
-        permission: number
-    };
-};

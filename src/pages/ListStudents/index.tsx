@@ -3,16 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, Image, FlatList, ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import styles from './style'
-import Button from '../../components/Button'
 import StudentModal from '../../components/StudentModal'
 import { Entypo } from '@expo/vector-icons';
 import Separator from '../../components/Separator';
 import { UserInterface } from '../../interface/interface';
 import SearchBox from '../../components/SearchBox';
 import { db } from '../../config/Firebase';
-import { Modal } from 'react-native';
-import { TouchableHighlight } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import { Feather } from '@expo/vector-icons';
 import firebase from 'firebase';
@@ -59,23 +55,6 @@ const CreateTurma = ({ route }) => {
                 studentsTemp.push(doc.data())
             })
             setStudents(studentsTemp)
-            // db.collection("users").where('permission', '==', 1).where('ativo', '==', 1)
-            //     .onSnapshot(function (snapshot) {
-            //         snapshot.docChanges().forEach(function (change) {
-            //             if (change.type === "added") {
-            //                 console.log("New Student: ", change.doc.data());
-            //                 studentsTemp.push(change.doc.data())
-            //             }
-            //             if (change.type === "modified") {
-            //                 console.log("Modified Student: ", change.doc.data());
-            //                 studentsTemp.push(change.doc.data())
-            //             }
-            //             if (change.type === "removed") {
-            //                 console.log("Removed2 Student: ", change.doc.data());
-            //             }
-            //         });
-            //         setStudents(studentsTemp)
-            //     });
         }
         catch (error) {
             alert(error)
@@ -138,16 +117,6 @@ const CreateTurma = ({ route }) => {
         navigation.navigate('PerformanceStudent', {
             name: data.name,
             uid: data.uid
-        });
-    }
-
-    function navigateToMenu() {
-        navigation.navigate('Menu', {
-            name: user.name,
-            uid: user.uid,
-            turma: user.turma,
-            permission: user.permission,
-            isModalShow: true
         });
     }
 

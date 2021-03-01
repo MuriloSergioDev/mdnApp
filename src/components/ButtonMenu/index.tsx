@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import { View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styles'
 
@@ -32,8 +32,6 @@ const ButtonMenu = ({ label, color, underlayColor, textColor, borderColor, onPre
     );
 
 }
-
-
 
 export default ButtonMenu;
 

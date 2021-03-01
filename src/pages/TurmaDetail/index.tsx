@@ -20,20 +20,7 @@ import firebase from 'firebase';
 import AlertModal from '../../components/AlertModal';
 import { AntDesign } from '@expo/vector-icons';
 import { db } from '../../config/Firebase';
-import style from '../../components/AlertModal/style';
-import { Entypo } from '@expo/vector-icons';
-import Separator from '../../components/Separator';
-import StudentModal from '../../components/StudentModal';
-import SearchBox from '../../components/SearchBox';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Foundation } from '@expo/vector-icons';
-
-
-// import { Container } from './styles';
-
-type Props = {
-
-}
 
 const TurmaDetail = ({ route }) => {
 
@@ -49,16 +36,8 @@ const TurmaDetail = ({ route }) => {
     const [modalAlertVisible, setModalAlertVisible] = useState(false);
     const [messageAlert, setMessageAlert] = useState('');
 
-    useEffect(() => {
-
-    }, [])
-
     function navigateBack() {
         navigation.goBack();
-    }
-
-    function navigateToMenu() {
-        navigation.navigate('Menu');
     }
 
     async function handleAddTurmaAluno() {

@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styles'
 
@@ -14,7 +14,6 @@ const ButtonMenuHidden = ({ }: Props) => {
             <View style={styles.viewBox}>
                 <Text style={styles.text}></Text>
             </View>
-
         </TouchableHighlight>
     );
 

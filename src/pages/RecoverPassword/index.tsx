@@ -1,19 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { ImageBackground, Text, Image } from 'react-native';
+import React from 'react';
+import { Text, Image } from 'react-native';
 import { View } from 'react-native';
 import styles from './style';
 import Button from '../../components/Button'
 import { useState } from 'react';
-import { Modal } from 'react-native';
 import firebase from "firebase";
 import { TextInput } from 'react-native-paper';
-import { UserInterface } from '../../interface/interface';
-import { db } from '../../config/Firebase';
-import Constants from 'expo-constants';
-import { Dimensions } from 'react-native';
 import { Foundation } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import AlertModal from '../../components/AlertModal';
@@ -22,25 +15,11 @@ type Props = {
 
 }
 
-// firebase.analytics()
-
 const Login = ({ }: Props) => {
-
-
 
     const [messageAlert, setMessageAlert] = useState('');
     const [modalAlertVisible, setModalAlertVisible] = useState(false);
-    const [user, setUser] = useState<UserInterface>(
-        {
-            name: '',
-            email: '',
-            password: '',
-            turma: '',
-            permission: 1
-        }
-    )
     const [email, setEmail] = useState('')
-
     const navigation = useNavigation()
 
     function navigateBack() {

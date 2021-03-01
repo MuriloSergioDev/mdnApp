@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacityBase, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './style'
 import { Feather } from '@expo/vector-icons';
@@ -20,10 +20,6 @@ const TurmaModal = ({ turma, colorStatus = "black", onPress, showAlertModalSuces
 
     const navigation = useNavigation();
 
-    function navigateBack() {
-        navigation.goBack();
-    }
-
     function handleTurmaDelete() {
         console.log('deletar aluno')
 
@@ -40,17 +36,6 @@ const TurmaModal = ({ turma, colorStatus = "black", onPress, showAlertModalSuces
                 {
                     text: 'OK', onPress: () => {
                         
-                        // const data = {
-                        //     id: turma.id,
-                        //     title: turma.title,
-                        //     start: turma.start,
-                        //     end: turma.end,
-                        //     status: turma.status,
-                        //     ativo: 0
-                        // }
-                        // db.collection('turmas')
-                        //     .doc(turma.id)
-                        //     .set(data)
                         db.collection("turmas").doc(turma.id).delete().then(function () {
                             //console.log("Document successfully deleted!");
                             showAlertModalSucess();

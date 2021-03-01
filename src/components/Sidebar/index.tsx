@@ -1,12 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { ReactNode } from 'react';
+import React, { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
-import { Modal } from 'react-native';
 import { View, Text } from 'react-native';
-import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
-import Button from '../Button';
 import styles from './styles'
-import { Dimensions } from 'react-native';
 import Separator from '../../components/Separator';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
@@ -15,10 +10,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 type Props = {
     name?: string
+    uid?: string
     permission?: number
 }
 
-const Sidebar = ({ name, permission }: Props) => {
+const Sidebar = ({ name, uid, permission }: Props) => {
 
     const navigation = useNavigation()
     const [options, setOptions] = useState([
@@ -37,7 +33,21 @@ const Sidebar = ({ name, permission }: Props) => {
                 ItemSeparatorComponent={() => <Separator />}
                 renderItem={({ item }) => (
                     (item.admin && permission === 0) || !item.admin ?
-                        <TouchableOpacity onPress={() => { navigation.navigate(item.page); }}>
+                        <TouchableOpacity onPress={() => {
+                            if (item.page == 'ListStudents') {
+                                if (permission === 1) {
+                                    navigation.navigate('PerformanceStudent', {
+                                        name,
+                                        uid
+                                    });
+                                } else {
+                                    navigation.navigate('ListStudents');
+                                }
+                            } else {
+                                navigation.navigate(item.page);
+                            }
+                        }}
+                        >
                             <View style={styles.containerOption}>
                                 {item.icon}
                                 <Text style={styles.textTitle}>{item.title}</Text>
@@ -51,8 +61,6 @@ const Sidebar = ({ name, permission }: Props) => {
     );
 
 }
-
-
 
 export default Sidebar;
 

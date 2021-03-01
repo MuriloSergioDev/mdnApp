@@ -43,8 +43,6 @@ const Button = ({ header, comfirmationString, isVisible, close, children }: Prop
 
 }
 
-
-
 export default Button;
 
 

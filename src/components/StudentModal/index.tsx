@@ -1,13 +1,11 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Alert } from 'react-native';
-import { RectButton, TouchableHighlight } from 'react-native-gesture-handler';
+import React, { ReactNode } from 'react';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { db } from '../../config/Firebase';
-import firebase from "firebase";
 import { UserInterface } from '../../interface/interface';
 
 
