@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
+import { Image, FlatList, ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import styles from './style';
 import TurmaModal from '../../components/TurmaModal'
@@ -14,13 +14,12 @@ import { db } from '../../config/Firebase';
 import AlertModal from '../../components/AlertModal';
 import { AntDesign } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
-import Header from '../../components/Header';
 
 type Props = {
 
 }
 
-const Turmas = ({ }: Props) => {
+const Apostilas = ({ }: Props) => {
 
     const navigation = useNavigation();
     const [search, setSearch] = useState<string>('')
@@ -90,8 +89,16 @@ const Turmas = ({ }: Props) => {
     let modalIcon = messageAlert== 'Turma excluida com sucesso' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Header/>
+        <View style={styles.container}>
+            <View style={styles.nav}>
+                <View style={styles.navUp}>
+                    <Feather name="arrow-left" size={30} color="white" onPress={() => { navigateBack() }} />
+                    <Image
+                        style={styles.logo}
+                        source={require("../../public/logoalt.png")}></Image>
+                    <Feather name="plus-square" size={30} color="white" onPress={() => { navigateToCreateTurma() }} />
+                </View>
+            </View>
 
             <SearchBox onChangeText={(text) => setSearch(text)} value={search} />
             <AlertModal
@@ -127,8 +134,8 @@ const Turmas = ({ }: Props) => {
                     />
                     : <ActivityIndicator animating={true} color='#6556A0' size={50}/>
             }
-        </SafeAreaView>
+        </View>
     )
 }
 
-export default Turmas;
+export default Apostilas;

@@ -60,7 +60,7 @@ const StudentModal = ({ user, colorStatus = "black", onPress, children, showAler
     }
 
     function handleAlunoEdit() {
-        console.log('editar aluno')
+        // console.log('editar aluno')
         navigation.navigate('EditPerformance', {
             name : user.name,
             uid: user.uid,

@@ -30,6 +30,24 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
 
+import com.facebook.react.bridge.JSIModulePackage; // <- add
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
+  ...
+  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+  ...
+
+      @Override
+      protected String getJSMainModuleName() {
+        return "index";
+      }
+
+      @Override
+      protected JSIModulePackage getJSIModulePackage() {
+        return new ReanimatedJSIModulePackage(); // <- add
+      }
+    };
+  ...
+
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
     new BasePackageList().getPackageList()
@@ -88,6 +106,11 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+  }
+
+  @Override
+  protected JSIModulePackage getJSIModulePackage() {
+    return new ReanimatedJSIModulePackage(); // <- add
   }
 
   /**

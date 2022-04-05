@@ -9,27 +9,32 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight
     },
-    contentBox: {
-        flex: 1,
-        backgroundColor: 'rgb(229, 229, 229)',
-        alignItems: 'center',
-    },
     nav: {
         backgroundColor: '#6556A0',
         width: Dimensions.get('window').width,
-        alignItems: 'flex-start',
+        alignItems: 'center',
         padding: 10,
-        flexDirection: 'column',
     },
     textNav: {
         fontSize: 20,
         color: 'white',
-        marginLeft: 'auto',
-        marginRight: 'auto'
+    },
+    navUp: {
+        width: Dimensions.get('window').width*0.9,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems:'center'
+    },
+    navDown: {
+        width: Dimensions.get('window').width,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems:'center',
+        paddingHorizontal: 20        
     },
     logo: {
-        height: Dimensions.get('window').height* 0.2,
-        width: Dimensions.get('window').width * 0.4,
+        height: Dimensions.get('window').height * 0.1,
+        width: Dimensions.get('window').width * 0.2,
         resizeMode: "contain",
     },
     input: {
@@ -42,10 +47,11 @@ export default StyleSheet.create({
 
     },
     text: {
-        color: 'white',
+        color: 'black',
+        width: Dimensions.get('window').width * 0.7,
         fontSize: 20,
         textAlign: 'center',
-        marginVertical: 20
+        marginBottom: 20
     },
     inputBox: {
         marginBottom: 20
@@ -54,15 +60,16 @@ export default StyleSheet.create({
         marginTop: 'auto',
         marginBottom: 20
     },
-    buttonMenuBox: {      
-        justifyContent: 'space-between',
+    buttonMenuBox: {
+        justifyContent: 'space-around',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        width: Dimensions.get('window').width * 0.85,        
+        maxWidth: Dimensions.get('window').width * 0.9,
     },
     menuBox: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
-    },
+        flexWrap: 'wrap'
+    }
 });

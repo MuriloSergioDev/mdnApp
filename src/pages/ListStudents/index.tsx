@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, Image, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, Image, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
 import { View } from 'react-native';
 import styles from './style'
 import StudentModal from '../../components/StudentModal'
@@ -15,6 +15,8 @@ import firebase from 'firebase';
 import AlertModal from '../../components/AlertModal';
 import { AntDesign } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
+import Header from '../../components/Header';
+import style from './style';
 
 const CreateTurma = ({ route }) => {
 
@@ -107,11 +109,7 @@ const CreateTurma = ({ route }) => {
         catch (error) {
             alert(error)
         }
-    }
-
-    function navigateBack() {
-        navigation.goBack();
-    }
+    }    
 
     function navigateToCharts(data) {
         navigation.navigate('PerformanceStudent', {
@@ -133,15 +131,8 @@ const CreateTurma = ({ route }) => {
     let modalIcon = messageAlert == 'Aluno excluido com sucesso' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />
 
     return (
-        <View style={styles.container}>
-            <View style={styles.nav}>
-                <View style={styles.navUp}>
-                    <Feather name="arrow-left" size={30} color="white" onPress={() => { navigateBack() }} />
-                    <Image
-                        style={styles.logo}
-                        source={require("../../public/logoalt.png")}></Image>
-                </View>
-            </View>
+        <SafeAreaView style={style.container} >
+            <Header/>
             <AlertModal
                 header={messageAlert}
                 comfirmationString='Ok'
@@ -190,7 +181,7 @@ const CreateTurma = ({ route }) => {
                     : <ActivityIndicator animating={true} color='#6556A0' size={50} />
             }
 
-        </View>
+        </SafeAreaView>
     )
 }
 

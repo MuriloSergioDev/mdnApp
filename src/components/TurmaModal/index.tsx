@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { TurmaInterface } from '../../interface/interface';
 import { db } from '../../config/Firebase';
+import { AntDesign } from '@expo/vector-icons';
 
 type Props = {
     turma?: TurmaInterface
@@ -25,7 +26,7 @@ const TurmaModal = ({ turma, colorStatus = "black", onPress, showAlertModalSuces
 
         // Works on both Android and iOS
         Alert.alert(
-            'Deseja mesmo excluir o aluno',
+            'Deseja mesmo excluir a turma?',
             '',
             [
                 {
@@ -73,8 +74,8 @@ const TurmaModal = ({ turma, colorStatus = "black", onPress, showAlertModalSuces
 
                 <TouchableOpacity onPress={() => { handleTurmaEdit() }}>
                     <View style={styles.editAction}>
-                        <Text style={styles.textAction}>Editar</Text>
-                        <Feather name="trash-2" size={20} color="white" />
+                        <Text style={styles.textAction}>Editar</Text>                        
+                        <AntDesign name="edit" size={20} color="white" />
                     </View>
                 </TouchableOpacity>
             </>

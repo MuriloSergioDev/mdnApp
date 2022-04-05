@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, Image } from 'react-native';
 import { View } from 'react-native';
 import styles from './styles';
@@ -13,6 +13,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import AlertModal from '../../components/AlertModal';
 import { AntDesign } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
+import UserContext from '../../context/UserContext';
+import AuthContext from '../../context/auth';
 
 type Props = {
 
@@ -20,15 +22,15 @@ type Props = {
 
 const Login = ({ }: Props) => {
 
+    const { signed,signIn } = useContext(AuthContext);
+    console.log(signed);
+    
 
 
-    const [user, setUser] = useState<UserInterface>(
+    const [user, setUser] = useState(
         {
-            name: '',
             email: '',
             password: '',
-            turma: '',
-            permission: 1
         }
     )
 
@@ -54,24 +56,8 @@ const Login = ({ }: Props) => {
         navigation.navigate('RecoverPassword');
     }
 
-    async function handleLogin() {
-        try {
-            const response = await firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            if (response.user.uid && response.user.emailVerified) {
-                const data = await db
-                    .collection('users')
-                    .doc(response.user.uid)
-                    .get()
-
-                navigateToMenu(data.data())
-            } else {
-                setMessageAlert('Seu email ainda nao foi verificado')
-                setModalAlertVisible(true)
-            }
-        }
-        catch (error) {
-            alert(error)
-        }
+    async function handleLogin() {        
+        signIn(user.email,user.password);
     }
 
     let modalIcon = messageAlert == ' ' ? <AntDesign name="checkcircle" size={24} color="green" /> : <Foundation name="alert" size={24} color="#e6d927" />

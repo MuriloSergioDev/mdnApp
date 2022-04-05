@@ -152,63 +152,7 @@ const TurmaDetail = ({ route }) => {
                         </View>
                     </View>
 
-                    <View style={styles.navDown}>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.textAtivo}>Adcionar Aluno</Text>
-                            <View style={styles.inputBox}>
-                                {/* @ts-ignore */}
-                                <TextInput
-                                    theme={{
-                                        colors: {
-                                            placeholder: 'white', text: 'white', primary: 'white'
-                                        }
-                                    }}
-                                    style={styles.input}
-                                    mode='flat'
-                                    label="UID aluno"
-                                    value={studentAdd}
-                                    onChangeText={(value => setStudentAdd(value))}
-                                />
-                                <View style={styles.buttonBox}>
-                                    <Button
-                                        color='#07b022'
-                                        underlayColor='#038017'
-                                        textColor='white'
-                                        label="Confirmar"
-                                        onPress={() => { handleAddTurmaAluno() }}></Button>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={styles.navDown}>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.textAtivo}>Remover Aluno</Text>
-                            <View style={styles.inputBox}>
-                                {/* @ts-ignore */}
-                                <TextInput
-                                    theme={{
-                                        colors: {
-                                            placeholder: 'white', text: 'white', primary: 'white'
-                                        }
-                                    }}
-                                    style={styles.input}
-                                    mode='flat'
-                                    label="UID aluno"
-                                    value={studentRemove}
-                                    onChangeText={(value => setStudentRemove(value))}
-                                />
-                                <View style={styles.buttonBox}>
-                                    <Button
-                                        color='red'
-                                        underlayColor='#b30404'
-                                        textColor='white'
-                                        label="Confirmar"
-                                        onPress={() => { handleRemoveTurmaAluno() }}></Button>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
+                    
                 </View>
             </ScrollView>
         </View>

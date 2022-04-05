@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Text, Image, TouchableOpacity,Clipboard } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -11,24 +11,19 @@ import { DesempenhoInterface, UserInterface } from '../../interface/interface';
 import { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { db } from '../../config/Firebase';
+import AuthContext from '../../context/auth';
 
 
 const PerformanceStudent = ({ route }) => {
 
     const navigation = useNavigation();
 
-    const { name, uid } = route.params
+    const { user } = useContext(AuthContext);
     const desempenhoTemp: DesempenhoInterface[] = []
     const bimestresTemp = []
     const [bimestres, setBimestres] = useState([])
     const [bimestre, setBimestre] = useState('');
-    const [desempenho, setDesempenho] = useState<DesempenhoInterface[]>()
-    const [user, setUser] = useState<UserInterface>(
-        {
-            name,
-            uid,
-        }
-    )
+    const [desempenho, setDesempenho] = useState<DesempenhoInterface[]>()    
     
     const screenWidth = Dimensions.get("window").width;
     const [dataChart, setDataChart] = useState({
